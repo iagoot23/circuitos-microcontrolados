@@ -225,3 +225,6 @@ html.shot *,html.shot *::before,html.shot *::after{animation-duration:0s!importa
 .bk-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 .bk-legend span{font-size:20px;font-weight:700;color:#fff;border-radius:20px;padding:4px 14px}
 .bk-legend .ctl{background:#F0A830}.bk-legend .math{background:#4CB050}.bk-legend .inp{background:#B05FD6}.bk-legend .out{background:#3D8FE0}
+.links{display:flex;gap:20px;flex-wrap:wrap}
+.links .btn{text-decoration:none;font-size:26px;padding:14px 26px}
+.links .btn:hover{background:var(--blue-l)}

@@ -70,7 +70,14 @@
           </g>
           <g stroke="#27348B" stroke-width="5"><line x1="360" y1="155" x2="420" y2="155"/><line x1="360" y1="285" x2="420" y2="285"/><line x1="360" y1="375" x2="420" y2="375"/><line x1="360" y1="465" x2="420" y2="465"/>
             <line x1="600" y1="125" x2="660" y2="125"/><line x1="600" y1="215" x2="660" y2="215"/><line x1="600" y1="305" x2="660" y2="305"/><line x1="600" y1="395" x2="660" y2="395"/><line x1="600" y1="485" x2="660" y2="485"/></g>
-          <g fill="#E8490F"><circle r="8" cy="300"><animate attributeName="cx" values="380;640;380" dur="3s" repeatCount="indefinite"/></circle></g>
+          <g>
+            <circle r="11" fill="#E8490F" stroke="#fff" stroke-width="3"><animateMotion dur="9s" repeatCount="indefinite" path="M360 285 H470 V155 H360" keyPoints="0;1;1" keyTimes="0;0.3;1" calcMode="linear"/><animate attributeName="opacity" dur="9s" repeatCount="indefinite" keyTimes="0;0.333;1" values="1;0;0" calcMode="discrete"/></circle>
+            <circle r="11" fill="#27348B" stroke="#fff" stroke-width="3"><animateMotion dur="9s" repeatCount="indefinite" path="M360 155 H550 V125 H660" keyPoints="0;0;1;1" keyTimes="0;0.333;0.633;1" calcMode="linear"/><animate attributeName="opacity" dur="9s" repeatCount="indefinite" keyTimes="0;0.333;0.666;1" values="0;1;0;0" calcMode="discrete"/></circle>
+            <circle r="11" fill="#2F9E44" stroke="#fff" stroke-width="3"><animateMotion dur="9s" repeatCount="indefinite" path="M660 215 H500 V170 H360" keyPoints="0;0;1;1" keyTimes="0;0.666;0.966;1" calcMode="linear"/><animate attributeName="opacity" dur="9s" repeatCount="indefinite" keyTimes="0;0.666;1" values="0;1;1" calcMode="discrete"/></circle>
+            <text x="500" y="560" font-size="22" font-weight="700" fill="#B8380A" text-anchor="middle" opacity="0">1 · a CPU busca a instrução na Flash<animate attributeName="opacity" dur="9s" repeatCount="indefinite" keyTimes="0;0.333;1" values="1;0;0" calcMode="discrete"/></text>
+            <text x="500" y="560" font-size="22" font-weight="700" fill="#27348B" text-anchor="middle" opacity="0">2 · a CPU envia um dado às portas: liga um pino<animate attributeName="opacity" dur="9s" repeatCount="indefinite" keyTimes="0;0.333;0.666;1" values="0;1;0;0" calcMode="discrete"/></text>
+            <text x="500" y="560" font-size="22" font-weight="700" fill="#2F7D4F" text-anchor="middle" opacity="0">3 · o conversor A/D entrega uma leitura à CPU<animate attributeName="opacity" dur="9s" repeatCount="indefinite" keyTimes="0;0.666;1" values="0;1;1" calcMode="discrete"/></text>
+          </g>
         </svg>
       </div>
       <div>
@@ -111,7 +118,12 @@
       <div><b>5 V</b>tensão de trabalho</div>
       <div><b>20 mA</b>corrente segura por pino (40 mA máx.)</div>
     </div>
-    <p class="callout anim" style="font-size:27px">Fabricado pela Microchip (antiga Atmel). Toda essa informação está no <b>datasheet</b>: o manual oficial do componente, que um técnico deve saber consultar.</p>
+    <p class="callout anim" style="font-size:27px;margin-bottom:22px">Fabricado pela Microchip (antiga Atmel). Toda essa informação está no <b>datasheet</b>: o manual oficial do componente, que um técnico deve saber consultar.</p>
+    <div class="links anim">
+      <a class="btn ghost" href="https://docs.arduino.cc/resources/datasheets/A000066-datasheet.pdf" target="_blank" rel="noopener">Datasheet do Arduino Uno R3 ↗</a>
+      <a class="btn ghost" href="https://docs.arduino.cc/resources/schematics/A000066-schematics.pdf" target="_blank" rel="noopener">Esquema elétrico do Uno R3 (aberto) ↗</a>
+      <a class="btn ghost" href="https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf" target="_blank" rel="noopener">Datasheet do ATmega328P ↗</a>
+    </div>
   </div>
 </section>
 

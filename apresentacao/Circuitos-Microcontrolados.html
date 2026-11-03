@@ -515,6 +515,9 @@ html.shot *,html.shot *::before,html.shot *::after{animation-duration:0s!importa
 .bk-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 .bk-legend span{font-size:20px;font-weight:700;color:#fff;border-radius:20px;padding:4px 14px}
 .bk-legend .ctl{background:#F0A830}.bk-legend .math{background:#4CB050}.bk-legend .inp{background:#B05FD6}.bk-legend .out{background:#3D8FE0}
+.links{display:flex;gap:20px;flex-wrap:wrap}
+.links .btn{text-decoration:none;font-size:26px;padding:14px 26px}
+.links .btn:hover{background:var(--blue-l)}
 
 </style>
 <script>window.QZ={};window.FC={};window.WR={};</script>
@@ -683,7 +686,14 @@ html.shot *,html.shot *::before,html.shot *::after{animation-duration:0s!importa
           </g>
           <g stroke="#27348B" stroke-width="5"><line x1="360" y1="155" x2="420" y2="155"/><line x1="360" y1="285" x2="420" y2="285"/><line x1="360" y1="375" x2="420" y2="375"/><line x1="360" y1="465" x2="420" y2="465"/>
             <line x1="600" y1="125" x2="660" y2="125"/><line x1="600" y1="215" x2="660" y2="215"/><line x1="600" y1="305" x2="660" y2="305"/><line x1="600" y1="395" x2="660" y2="395"/><line x1="600" y1="485" x2="660" y2="485"/></g>
-          <g fill="#E8490F"><circle r="8" cy="300"><animate attributeName="cx" values="380;640;380" dur="3s" repeatCount="indefinite"/></circle></g>
+          <g>
+            <circle r="11" fill="#E8490F" stroke="#fff" stroke-width="3"><animateMotion dur="9s" repeatCount="indefinite" path="M360 285 H470 V155 H360" keyPoints="0;1;1" keyTimes="0;0.3;1" calcMode="linear"/><animate attributeName="opacity" dur="9s" repeatCount="indefinite" keyTimes="0;0.333;1" values="1;0;0" calcMode="discrete"/></circle>
+            <circle r="11" fill="#27348B" stroke="#fff" stroke-width="3"><animateMotion dur="9s" repeatCount="indefinite" path="M360 155 H550 V125 H660" keyPoints="0;0;1;1" keyTimes="0;0.333;0.633;1" calcMode="linear"/><animate attributeName="opacity" dur="9s" repeatCount="indefinite" keyTimes="0;0.333;0.666;1" values="0;1;0;0" calcMode="discrete"/></circle>
+            <circle r="11" fill="#2F9E44" stroke="#fff" stroke-width="3"><animateMotion dur="9s" repeatCount="indefinite" path="M660 215 H500 V170 H360" keyPoints="0;0;1;1" keyTimes="0;0.666;0.966;1" calcMode="linear"/><animate attributeName="opacity" dur="9s" repeatCount="indefinite" keyTimes="0;0.666;1" values="0;1;1" calcMode="discrete"/></circle>
+            <text x="500" y="560" font-size="22" font-weight="700" fill="#B8380A" text-anchor="middle" opacity="0">1 · a CPU busca a instrução na Flash<animate attributeName="opacity" dur="9s" repeatCount="indefinite" keyTimes="0;0.333;1" values="1;0;0" calcMode="discrete"/></text>
+            <text x="500" y="560" font-size="22" font-weight="700" fill="#27348B" text-anchor="middle" opacity="0">2 · a CPU envia um dado às portas: liga um pino<animate attributeName="opacity" dur="9s" repeatCount="indefinite" keyTimes="0;0.333;0.666;1" values="0;1;0;0" calcMode="discrete"/></text>
+            <text x="500" y="560" font-size="22" font-weight="700" fill="#2F7D4F" text-anchor="middle" opacity="0">3 · o conversor A/D entrega uma leitura à CPU<animate attributeName="opacity" dur="9s" repeatCount="indefinite" keyTimes="0;0.666;1" values="0;1;1" calcMode="discrete"/></text>
+          </g>
         </svg>
       </div>
       <div>
@@ -724,7 +734,12 @@ html.shot *,html.shot *::before,html.shot *::after{animation-duration:0s!importa
       <div><b>5 V</b>tensão de trabalho</div>
       <div><b>20 mA</b>corrente segura por pino (40 mA máx.)</div>
     </div>
-    <p class="callout anim" style="font-size:27px">Fabricado pela Microchip (antiga Atmel). Toda essa informação está no <b>datasheet</b>: o manual oficial do componente, que um técnico deve saber consultar.</p>
+    <p class="callout anim" style="font-size:27px;margin-bottom:22px">Fabricado pela Microchip (antiga Atmel). Toda essa informação está no <b>datasheet</b>: o manual oficial do componente, que um técnico deve saber consultar.</p>
+    <div class="links anim">
+      <a class="btn ghost" href="https://docs.arduino.cc/resources/datasheets/A000066-datasheet.pdf" target="_blank" rel="noopener">Datasheet do Arduino Uno R3 ↗</a>
+      <a class="btn ghost" href="https://docs.arduino.cc/resources/schematics/A000066-schematics.pdf" target="_blank" rel="noopener">Esquema elétrico do Uno R3 (aberto) ↗</a>
+      <a class="btn ghost" href="https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf" target="_blank" rel="noopener">Datasheet do ATmega328P ↗</a>
+    </div>
   </div>
 </section>
 
@@ -3244,6 +3259,7 @@ FC.d7ldr={w:900,h:820,label:'Fluxograma do LED automático',
     <ol class="refs anim">
       <li>ARDUINO. <i>Language Reference</i>. docs.arduino.cc/language-reference</li>
       <li>ARDUINO. <i>attachInterrupt()</i>, <i>analogRead()</i>, <i>analogWrite()</i>, <i>millis()</i>. docs.arduino.cc</li>
+      <li>ARDUINO. <i>Arduino Uno Rev3: datasheet e esquema elétrico (A000066)</i>. docs.arduino.cc/hardware/uno-rev3</li>
       <li>MICROCHIP. <i>ATmega328P Datasheet</i>: timers, ADC, USART, TWI (I2C) e SPI. microchip.com</li>
       <li>AUTODESK. <i>Tinkercad Circuits</i>. tinkercad.com</li>
       <li>LABCENTER ELECTRONICS. <i>Proteus Design Suite 8</i>. labcenter.com</li>
