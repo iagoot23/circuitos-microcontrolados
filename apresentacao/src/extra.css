@@ -210,3 +210,18 @@ svg.fc text,svg.wr text{font-family:var(--serif)}
 html.shot *,html.shot *::before,html.shot *::after{animation-duration:0s!important;animation-delay:0s!important;transition:none!important}
 .fig.fit svg{height:690px;width:auto;margin:0 auto}
 .fig svg.fc,.fig svg.wr{max-height:700px;width:auto;max-width:100%;margin:0 auto}
+
+/* blocos do Tinkercad (dia 1) */
+.blocks{font-family:'Segoe UI',system-ui,sans-serif;background:#F5F6F9;border:3px solid var(--gray-1);border-radius:16px;padding:34px 30px}
+.blocks i{font-style:normal;background:#fff;color:#1A2366;border-radius:20px;padding:2px 14px;font-weight:700}
+.bk{display:inline-flex;align-items:center;gap:10px;color:#fff;font-size:26px;font-weight:700;border-radius:10px;padding:10px 16px}
+.bk.out{background:#3D8FE0;box-shadow:inset 0 -4px 0 rgba(0,0,0,.15)}
+.bk.inp{background:#B05FD6;border-radius:30px;padding:6px 14px;font-size:24px}
+.bk.math{background:#4CB050;border-radius:30px;padding:6px 10px;font-size:24px}
+.bk-if{display:inline-block;background:#F0A830;border-radius:12px;padding:0 0 0 0;color:#fff;font-size:26px;font-weight:700;min-width:600px}
+.bk-h{display:flex;align-items:center;gap:12px;padding:12px 18px}
+.bk-in{margin-left:34px;background:#F5F6F9;padding:10px 12px;border-radius:0 8px 8px 0}
+.bk-f{height:24px}
+.bk-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.bk-legend span{font-size:20px;font-weight:700;color:#fff;border-radius:20px;padding:4px 14px}
+.bk-legend .ctl{background:#F0A830}.bk-legend .math{background:#4CB050}.bk-legend .inp{background:#B05FD6}.bk-legend .out{background:#3D8FE0}

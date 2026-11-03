@@ -501,6 +501,21 @@ html.shot *,html.shot *::before,html.shot *::after{animation-duration:0s!importa
 .fig.fit svg{height:690px;width:auto;margin:0 auto}
 .fig svg.fc,.fig svg.wr{max-height:700px;width:auto;max-width:100%;margin:0 auto}
 
+/* blocos do Tinkercad (dia 1) */
+.blocks{font-family:'Segoe UI',system-ui,sans-serif;background:#F5F6F9;border:3px solid var(--gray-1);border-radius:16px;padding:34px 30px}
+.blocks i{font-style:normal;background:#fff;color:#1A2366;border-radius:20px;padding:2px 14px;font-weight:700}
+.bk{display:inline-flex;align-items:center;gap:10px;color:#fff;font-size:26px;font-weight:700;border-radius:10px;padding:10px 16px}
+.bk.out{background:#3D8FE0;box-shadow:inset 0 -4px 0 rgba(0,0,0,.15)}
+.bk.inp{background:#B05FD6;border-radius:30px;padding:6px 14px;font-size:24px}
+.bk.math{background:#4CB050;border-radius:30px;padding:6px 10px;font-size:24px}
+.bk-if{display:inline-block;background:#F0A830;border-radius:12px;padding:0 0 0 0;color:#fff;font-size:26px;font-weight:700;min-width:600px}
+.bk-h{display:flex;align-items:center;gap:12px;padding:12px 18px}
+.bk-in{margin-left:34px;background:#F5F6F9;padding:10px 12px;border-radius:0 8px 8px 0}
+.bk-f{height:24px}
+.bk-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.bk-legend span{font-size:20px;font-weight:700;color:#fff;border-radius:20px;padding:4px 14px}
+.bk-legend .ctl{background:#F0A830}.bk-legend .math{background:#4CB050}.bk-legend .inp{background:#B05FD6}.bk-legend .out{background:#3D8FE0}
+
 </style>
 <script>window.QZ={};window.FC={};window.WR={};</script>
 </head>
@@ -578,7 +593,7 @@ html.shot *,html.shot *::before,html.shot *::after{animation-duration:0s!importa
       <div class="card anim"><h3>2 · Simulação</h3><p>O circuito é montado e programado no <b>Tinkercad</b>, com diagrama de montagem e fluxograma.</p></div>
       <div class="card hot anim"><h3>3 · Bancada</h3><p>Nos dois últimos dias, o mesmo método vai para o <b>Arduino real</b>: relé, lâmpada, sensores e PWM.</p></div>
     </div>
-    <div class="scan anim"><div>Dias 2 a 5<br><span style="font-weight:400;font-size:24px">Tinkercad</span></div><i>→</i><div>Dia 6<br><span style="font-weight:400;font-size:24px">Prática 1 · relé e ultrassônico</span></div><i>→</i><div>Dia 7<br><span style="font-weight:400;font-size:24px">Prática 2 · PWM e LDR</span></div></div>
+    <div class="scan anim"><div>Dias 1 a 5<br><span style="font-weight:400;font-size:24px">Tinkercad</span></div><i>→</i><div>Dia 6<br><span style="font-weight:400;font-size:24px">Prática 1 · relé e ultrassônico</span></div><i>→</i><div>Dia 7<br><span style="font-weight:400;font-size:24px">Prática 2 · PWM e LDR</span></div></div>
   </div>
 </section>
 
@@ -596,7 +611,7 @@ html.shot *,html.shot *::before,html.shot *::after{animation-duration:0s!importa
   </div>
 </section>
 
-<!-- ===================== DIA 1 · 27/10 ===================== -->
+<!-- ===================== DIA 1 · 27/10 · TINKERCAD ===================== -->
 <section class="slide daycover" data-theme="Dia 1 · Abertura" data-day="1" data-date="ter, 27/10" data-title="Microcontroladores e algoritmos" data-badge="Tinkercad">
   <div class="content">
     <div class="dc-head anim"><span class="dc-num">Dia 1</span><span class="dc-date">terça-feira, 27/10</span><span class="dc-tag tk">Tinkercad</span></div>
@@ -606,26 +621,341 @@ html.shot *,html.shot *::before,html.shot *::after{animation-duration:0s!importa
     </h1>
     <p class="lead anim">O que é um microcontrolador, como ele é organizado e como um problema vira um programa.</p>
     <ol class="agenda anim">
-      <li><b>Aula 1</b>Arquitetura de microcontroladores</li>
-      <li><b>Aula 2</b>Algoritmos</li>
-      <li><b>Aula 3</b>Programação de microcontroladores</li>
-      <li><b>Aula 4</b>Arduino × microcontrolador · firmware × software</li>
-      <li><b>Aula 5</b>Apresentação do Tinkercad</li>
+      <li><b>13:30 · Aula 1</b>Apresentação da UC · onde estão os microcontroladores</li>
+      <li><b>14:15 · Aula 2</b>Arquitetura de microcontroladores</li>
+      <li><b>15:00 · Aula 3</b>Algoritmos e fluxograma</li>
+      <li><b>16:00 · Aula 4</b>Programação · Arduino × microcontrolador · firmware × software</li>
+      <li class="pr"><b>16:45 · Aula 5</b>Tinkercad: hello, world com botão e LED</li>
     </ol>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 1 · Microcontroladores">
+  <div class="content">
+    <h2 class="title sm anim">Onde estão os microcontroladores?</h2>
+    <p class="lead sm anim">Um <b>microcontrolador</b> é um computador inteiro num único chip, feito para controlar <b>uma tarefa específica</b>. Há dezenas deles ao nosso redor.</p>
+    <div class="cards" style="--c:3">
+      <div class="card anim"><h3>Em casa</h3><p>Micro-ondas, máquina de lavar, controle remoto, ar-condicionado, fechadura eletrônica.</p></div>
+      <div class="card anim"><h3>No carro</h3><p>Injeção eletrônica, ABS, airbag, painel e vidros elétricos: um carro moderno tem mais de 50.</p></div>
+      <div class="card hot anim"><h3>Na indústria</h3><p>CLPs, inversores de frequência, sensores inteligentes, robôs, balanças e medidores de energia.</p></div>
+    </div>
+    <p class="callout blue anim" style="font-size:27px">São os <b>sistemas embarcados</b>: o computador fica “embutido” no equipamento, e o usuário nem percebe que ele existe.</p>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 1 · Microcontroladores">
+  <div class="content">
+    <h2 class="title sm anim">Microprocessador × microcontrolador</h2>
+    <table class="tbl compare anim" style="margin-bottom:24px">
+      <thead><tr><th></th><th>Microprocessador (CPU)</th><th>Microcontrolador (MCU)</th></tr></thead>
+      <tbody>
+        <tr><td>O que tem no chip</td><td>Só a unidade de processamento</td><td>CPU + memórias + entradas e saídas + periféricos</td></tr>
+        <tr><td>Precisa de</td><td>Memória RAM, disco e placa-mãe externos</td><td>Quase nada: alimentação e clock</td></tr>
+        <tr><td>Velocidade</td><td>GHz</td><td>MHz (16 MHz no Arduino Uno)</td></tr>
+        <tr><td>Consumo e custo</td><td>Alto</td><td>Baixo: poucos miliwatts e poucos reais</td></tr>
+        <tr><td>Exemplo</td><td>Intel Core, AMD Ryzen</td><td>ATmega328P, PIC, ESP32, STM32</td></tr>
+      </tbody>
+    </table>
+    <p class="note anim">O computador faz muitas tarefas diferentes. O microcontrolador faz uma só, sem parar, durante anos.</p>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 1 · Arquitetura">
+  <div class="content">
+    <h2 class="title sm anim">Arquitetura de um microcontrolador</h2>
+    <div class="two wl" style="grid-template-columns:1.25fr .75fr">
+      <div class="fig anim">
+        <svg viewBox="0 0 1000 600" role="img" aria-label="Diagrama de blocos de um microcontrolador">
+          <rect x="20" y="20" width="960" height="560" rx="24" fill="#F5F6F9" stroke="#1A2366" stroke-width="5"/>
+          <text x="40" y="60" font-size="24" font-weight="700" fill="#1A2366">um único chip</text>
+          <rect x="420" y="90" width="180" height="420" rx="10" fill="#E6E9F5" stroke="#27348B" stroke-width="4"/>
+          <text x="510" y="300" font-size="22" font-weight="700" fill="#27348B" text-anchor="middle" transform="rotate(-90 510 300)">barramentos (dados e endereços)</text>
+          <g font-size="23" font-weight="700" text-anchor="middle">
+            <rect x="60" y="90" width="300" height="130" rx="14" fill="#27348B"/><text x="210" y="148" fill="#fff">CPU</text><text x="210" y="180" fill="#E6E9F5" font-size="18" font-weight="400">ULA + registradores</text>
+            <rect x="60" y="250" width="300" height="70" rx="12" fill="#fff" stroke="#27348B" stroke-width="4"/><text x="210" y="293" fill="#1A2366">Flash (programa)</text>
+            <rect x="60" y="340" width="300" height="70" rx="12" fill="#fff" stroke="#27348B" stroke-width="4"/><text x="210" y="383" fill="#1A2366">SRAM (variáveis)</text>
+            <rect x="60" y="430" width="300" height="70" rx="12" fill="#fff" stroke="#27348B" stroke-width="4"/><text x="210" y="473" fill="#1A2366">EEPROM (ajustes)</text>
+            <rect x="660" y="90" width="300" height="70" rx="12" fill="#FDE7DD" stroke="#E8490F" stroke-width="4"/><text x="810" y="133" fill="#B8380A">Portas digitais (E/S)</text>
+            <rect x="660" y="180" width="300" height="70" rx="12" fill="#FDE7DD" stroke="#E8490F" stroke-width="4"/><text x="810" y="223" fill="#B8380A">Conversor A/D</text>
+            <rect x="660" y="270" width="300" height="70" rx="12" fill="#FDE7DD" stroke="#E8490F" stroke-width="4"/><text x="810" y="313" fill="#B8380A">Timers e PWM</text>
+            <rect x="660" y="360" width="300" height="70" rx="12" fill="#FDE7DD" stroke="#E8490F" stroke-width="4"/><text x="810" y="403" fill="#B8380A">UART · I2C · SPI</text>
+            <rect x="660" y="450" width="300" height="70" rx="12" fill="#fff" stroke="#8A92A6" stroke-width="4"/><text x="810" y="493" fill="#525B70">Clock e interrupções</text>
+          </g>
+          <g stroke="#27348B" stroke-width="5"><line x1="360" y1="155" x2="420" y2="155"/><line x1="360" y1="285" x2="420" y2="285"/><line x1="360" y1="375" x2="420" y2="375"/><line x1="360" y1="465" x2="420" y2="465"/>
+            <line x1="600" y1="125" x2="660" y2="125"/><line x1="600" y1="215" x2="660" y2="215"/><line x1="600" y1="305" x2="660" y2="305"/><line x1="600" y1="395" x2="660" y2="395"/><line x1="600" y1="485" x2="660" y2="485"/></g>
+          <g fill="#E8490F"><circle r="8" cy="300"><animate attributeName="cx" values="380;640;380" dur="3s" repeatCount="indefinite"/></circle></g>
+        </svg>
+      </div>
+      <div>
+        <ul class="list sm anim">
+          <li><b>CPU:</b> busca e executa as instruções; a ULA faz as contas e as comparações.</li>
+          <li><b>Flash:</b> guarda o programa, mesmo sem energia.</li>
+          <li><b>SRAM:</b> guarda as variáveis; apaga ao desligar.</li>
+          <li><b>EEPROM:</b> guarda ajustes que precisam sobreviver ao desligamento.</li>
+          <li><b>Periféricos:</b> fazem a ponte com o mundo externo.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 1 · Arquitetura">
+  <div class="content">
+    <h2 class="title sm anim">Como a CPU trabalha</h2>
+    <div class="scan anim" style="margin-bottom:34px"><div>1 · Busca<br><span style="font-weight:400;font-size:24px">lê a instrução na Flash</span></div><i>→</i><div>2 · Decodifica<br><span style="font-weight:400;font-size:24px">entende o que fazer</span></div><i>→</i><div>3 · Executa<br><span style="font-weight:400;font-size:24px">calcula, compara, liga um pino</span></div></div>
+    <div class="two">
+      <div class="card anim"><h3>Arquitetura Harvard</h3><p>Programa e dados em memórias e barramentos <b>separados</b>: a CPU busca a próxima instrução enquanto lê um dado. É a do ATmega328P e da maioria dos microcontroladores.</p></div>
+      <div class="card anim"><h3>Arquitetura Von Neumann</h3><p>Programa e dados na <b>mesma</b> memória e no mesmo barramento. Mais simples e flexível; comum nos computadores.</p></div>
+    </div>
+    <p class="note anim">A 16 MHz, o ATmega328P executa até 16 milhões de instruções simples por segundo: o ciclo se repete 16 milhões de vezes a cada segundo.</p>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 1 · ATmega328P">
+  <div class="content">
+    <h2 class="title sm anim">O ATmega328P, coração do Arduino Uno</h2>
+    <div class="pinout anim" style="--c:4;margin-bottom:26px">
+      <div><b>8 bits</b>tamanho dos dados que a CPU processa de uma vez</div>
+      <div><b>16 MHz</b>clock (cristal na placa)</div>
+      <div><b>32 KB</b>Flash, para o programa</div>
+      <div><b>2 KB</b>SRAM, para as variáveis</div>
+      <div><b>1 KB</b>EEPROM, para ajustes</div>
+      <div><b>14 + 6</b>pinos digitais e entradas analógicas</div>
+      <div><b>5 V</b>tensão de trabalho</div>
+      <div><b>20 mA</b>corrente segura por pino (40 mA máx.)</div>
+    </div>
+    <p class="callout anim" style="font-size:27px">Fabricado pela Microchip (antiga Atmel). Toda essa informação está no <b>datasheet</b>: o manual oficial do componente, que um técnico deve saber consultar.</p>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 1 · Algoritmos">
+  <div class="content">
+    <h2 class="title sm anim">Algoritmo: a receita antes do programa</h2>
+    <div class="two">
+      <div>
+        <p class="anim" style="margin-top:0"><b>Algoritmo</b> é uma sequência <b>finita</b> e <b>ordenada</b> de passos, sem ambiguidade, que resolve um problema.</p>
+        <ul class="list sm anim">
+          <li><b>Finito:</b> tem começo e fim (ou um ciclo bem definido).</li>
+          <li><b>Ordenado:</b> a ordem dos passos importa.</li>
+          <li><b>Sem ambiguidade:</b> cada passo tem um único significado.</li>
+          <li><b>Entradas e saídas:</b> recebe dados e produz um resultado.</li>
+        </ul>
+      </div>
+      <div class="box anim">
+        <h3>Exemplo: portão automático</h3>
+        <ol class="howto sm">
+          <li>Esperar o botão do controle ser apertado.</li>
+          <li>Ligar o motor no sentido de abrir.</li>
+          <li>Quando o sensor de fim de curso atuar, desligar o motor.</li>
+          <li>Esperar 30 segundos.</li>
+          <li>Ligar o motor no sentido de fechar até o outro fim de curso.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 1 · Algoritmos">
+  <div class="content">
+    <h2 class="title sm anim">Três formas de escrever o mesmo algoritmo</h2>
+    <div class="two" style="grid-template-columns:1fr .8fr;gap:36px">
+      <div>
+        <div class="card anim" style="margin-bottom:18px"><h3>1 · Descrição em texto</h3><p>“Se estiver escuro, acenda a lâmpada; senão, apague. Repita sempre.”</p></div>
+        <div class="card anim" style="margin-bottom:18px"><h3>2 · Pseudocódigo</h3><p style="font-family:var(--mono);font-size:23px;line-height:1.5">repita sempre<br>&nbsp;&nbsp;leia o sensor de luz<br>&nbsp;&nbsp;se escuro então acenda<br>&nbsp;&nbsp;senão apague</p></div>
+        <div class="card hot anim"><h3>3 · Fluxograma</h3><p>O desenho ao lado. Mostra os caminhos de forma visual e é a documentação exigida em todas as práticas desta UC.</p></div>
+      </div>
+      <div class="fig anim"><div class="w" data-w="flow" data-f="d1luz"></div></div>
+    </div>
+  </div>
+</section>
+<script>
+FC.d1luz={w:700,h:640,label:'Fluxograma: acender a lâmpada no escuro',
+  n:[['i','term',260,40,'Início'],['o1','io',260,150,'Ler o sensor de luz'],['d1','dec',260,290,'Está|escuro?',260],
+     ['p1','proc',260,440,'Acender a lâmpada',260],['p2','proc',560,440,'Apagar|a lâmpada',220]],
+  e:[['i','o1'],['o1','d1'],['d1','p1',[],'Sim'],['d1.r','p2',[],'Não'],['p1','o1.l',['v:540','h:60','v:150']],['p2','o1.l',['v:540','h:60','v:150']]]};
+</script>
+
+<section class="slide" data-theme="Dia 1 · Programação">
+  <div class="content">
+    <h2 class="title sm anim">Programação: do código ao chip</h2>
+    <div class="fig anim" style="margin-bottom:24px">
+      <svg viewBox="0 0 1640 230" role="img" aria-label="Etapas da programação de um microcontrolador">
+        <g font-family="Libre Baskerville, Georgia, serif" text-anchor="middle" font-weight="700">
+          <rect x="10" y="40" width="270" height="130" rx="16" fill="#27348B"/><text x="145" y="98" fill="#fff" font-size="26">Código-fonte</text><text x="145" y="134" fill="#E6E9F5" font-size="19" font-weight="400">C/C++ no editor</text>
+          <rect x="350" y="40" width="270" height="130" rx="16" fill="#fff" stroke="#27348B" stroke-width="5"/><text x="485" y="98" fill="#1A2366" font-size="26">Compilador</text><text x="485" y="134" fill="#525B70" font-size="19" font-weight="400">verifica e traduz</text>
+          <rect x="690" y="40" width="270" height="130" rx="16" fill="#fff" stroke="#27348B" stroke-width="5"/><text x="825" y="98" fill="#1A2366" font-size="26">Arquivo .hex</text><text x="825" y="134" fill="#525B70" font-size="19" font-weight="400">linguagem de máquina</text>
+          <rect x="1030" y="40" width="270" height="130" rx="16" fill="#fff" stroke="#27348B" stroke-width="5"/><text x="1165" y="98" fill="#1A2366" font-size="26">Gravação</text><text x="1165" y="134" fill="#525B70" font-size="19" font-weight="400">USB + bootloader</text>
+          <rect x="1370" y="40" width="260" height="130" rx="16" fill="#E8490F"/><text x="1500" y="98" fill="#fff" font-size="26">Flash</text><text x="1500" y="134" fill="#fff" font-size="19" font-weight="400">executa ao ligar</text>
+          <g stroke="#8A92A6" stroke-width="6"><line x1="280" y1="105" x2="350" y2="105"/><line x1="620" y1="105" x2="690" y2="105"/><line x1="960" y1="105" x2="1030" y2="105"/><line x1="1300" y1="105" x2="1370" y2="105"/></g>
+          <circle r="10" fill="#E8490F"><animateMotion dur="4s" repeatCount="indefinite" path="M145 20 H1500"/></circle>
+        </g>
+      </svg>
+    </div>
+    <div class="cards" style="--c:4">
+      <div class="card anim"><h3>C/C++ (Arduino)</h3><p>A linguagem desta UC. Bibliotecas prontas facilitam o uso de sensores.</p></div>
+      <div class="card anim"><h3>Blocos</h3><p>Programação visual, no Tinkercad. Ótima para começar.</p></div>
+      <div class="card anim"><h3>Assembly</h3><p>Instruções da própria CPU: máximo controle, pouca produtividade.</p></div>
+      <div class="card anim"><h3>MicroPython</h3><p>Python em placas maiores, como ESP32 e Raspberry Pi Pico.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 1 · Arduino">
+  <div class="content">
+    <h2 class="title sm anim">Arduino × microcontrolador</h2>
+    <div class="two wr">
+      <div class="fig anim"><div class="w" data-w="wiring" data-d="d1uno"></div></div>
+      <div>
+        <div class="box anim" style="margin-bottom:20px"><h3>Microcontrolador</h3><p>É o <b>chip</b>: o ATmega328P. Sozinho, precisa de fonte, cristal, gravador e conectores.</p></div>
+        <div class="box anim" style="border-color:var(--orange);margin-bottom:20px"><h3 style="color:var(--orange-d)">Arduino</h3><p>É a <b>plataforma</b>: a placa com o chip, regulador de tensão, cristal, USB e conectores, mais a <b>IDE</b> e as <b>bibliotecas</b>. Hardware e software abertos.</p></div>
+        <p class="note anim">Um projeto testado no Arduino pode virar uma placa própria só com o ATmega328P, mais barata e menor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+WR.d1uno={w:820,h:560,label:'Placa Arduino Uno com as partes identificadas',
+  p:[['uno','U',130,70]],
+  t:[[86,124,'USB','lbl','end'],[100,404,'fonte','lbl','end'],[100,426,'7–12 V','sm','end'],[445,40,'pinos digitais (D0 a D13)','lbl'],[530,545,'alimentação e analógicos (A0 a A5)','lbl'],[545,370,'microcontrolador','lbl']]};
+</script>
+
+<section class="slide" data-theme="Dia 1 · Firmware e software">
+  <div class="content">
+    <h2 class="title sm anim">Firmware × software</h2>
+    <div class="vs anim" style="margin-bottom:26px">
+      <div><h3>Firmware</h3><ul>
+        <li>Gravado <b>dentro</b> do dispositivo (Flash)</li>
+        <li>Controla o hardware diretamente</li>
+        <li>Roda sem sistema operacional</li>
+        <li>Inicia sozinho ao ligar</li>
+        <li>Ex.: o programa do Arduino, de um CLP, do micro-ondas</li></ul></div>
+      <div class="h"><h3>Software</h3><ul>
+        <li>Instalado num computador ou celular</li>
+        <li>Roda sobre um sistema operacional</li>
+        <li>Pode ser aberto, fechado e trocado com facilidade</li>
+        <li>Conversa com o hardware por meio do sistema</li>
+        <li>Ex.: a Arduino IDE, o Tinkercad, o navegador</li></ul></div>
+    </div>
+    <p class="conclusion anim">O código que se escreve na IDE (software) vira o firmware gravado no Arduino.</p>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 1 · Tinkercad">
+  <div class="content">
+    <h2 class="title sm anim">Tinkercad Circuits: primeiros passos</h2>
+    <div class="two">
+      <ol class="howto sm anim">
+        <li>Acesse <b>tinkercad.com</b> e entre com a conta (ou pelo código da turma).</li>
+        <li><b>Criar › Circuito</b>: abre a área de trabalho.</li>
+        <li>Na lista <b>Componentes</b> (à direita), arraste o <b>Arduino Uno R3</b>, uma <b>placa de ensaio</b>, um <b>LED</b>, um <b>botão</b> e dois <b>resistores</b>.</li>
+        <li>Clique num terminal e depois no outro para criar um <b>fio</b>. Clique no fio para mudar a cor.</li>
+        <li>Clique em <b>Código</b>: escolha <b>Blocos</b>, <b>Blocos + Texto</b> ou <b>Texto</b>.</li>
+        <li><b>Iniciar simulação</b> roda o circuito; o <b>Monitor serial</b> fica embaixo do código.</li>
+      </ol>
+      <div>
+        <div class="card anim" style="margin-bottom:20px"><h3>Por que simular?</h3><p>Nada queima, os erros aparecem com segurança e é possível testar antes de comprar ou montar.</p></div>
+        <div class="card anim" style="margin-bottom:20px"><h3>Instrumentos virtuais</h3><p>Multímetro, osciloscópio, gerador de funções e fonte de alimentação.</p></div>
+        <div class="card hot anim"><h3>Limites</h3><p>Lista de componentes fixa e sem rede elétrica CA: na bancada, sempre conferir.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 1 · Hello, world">
+  <div class="content">
+    <h2 class="title sm anim">Hello, world: botão que aciona o LED · montagem</h2>
+    <div class="two wl" style="grid-template-columns:1.1fr .9fr">
+      <div class="fig anim"><div class="w" data-w="wiring" data-d="d1btn"></div></div>
+      <div>
+        <table class="tbl sm anim" style="margin-bottom:16px">
+          <thead><tr><th>De</th><th>Para</th></tr></thead>
+          <tbody>
+            <tr><td>Pino 13 → resistor 220 Ω</td><td>anodo do LED</td></tr>
+            <tr><td>Catodo do LED</td><td>GND</td></tr>
+            <tr><td>Botão: um lado</td><td>5V</td></tr>
+            <tr><td>Botão: outro lado</td><td>pino 2</td></tr>
+            <tr><td>Resistor 10 kΩ</td><td>pino 2 → GND</td></tr>
+          </tbody>
+        </table>
+        <ul class="list sm anim">
+          <li>Apertado: o pino 2 recebe <b>5 V</b> (nível <b>1</b>, ALTO).</li>
+          <li>Solto: o resistor de 10 kΩ “puxa” o pino para <b>0 V</b> (nível <b>0</b>, BAIXO).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+WR.d1btn={w:860,h:800,label:'Botão no pino 2 com resistor de 10 kΩ e LED no pino 13',
+  p:[['uno','U',40,300],['led','LD',420,80,{l:'LED'}],['res','R',410,160,{v:1,l:'220 Ω'}],['res','R2',620,160,{v:1,l:'10 kΩ'}],['btn','B',760,180,{l:'botão'}]],
+  f:[['o','U.13','v:280','h:410','R.b'],['o','LD.a','R.a'],['k','LD.k','h:470','v:30','h:217','U.GND'],['k','R2.a','v:30',[470,30]],
+     ['b','U.2','v:290','h:742','B.a'],['b','R2.b',[620,290]],['r','B.b','v:250','h:830','v:760','h:349','U.5V']]};
+</script>
+
+<section class="slide" data-theme="Dia 1 · Hello, world">
+  <div class="content">
+    <h2 class="title sm anim">Hello, world: programa em blocos</h2>
+    <div class="two" style="grid-template-columns:1fr 1fr;gap:44px">
+      <div class="blocks anim">
+        <div class="bk-if">
+          <div class="bk-h">se <span class="bk math"><span class="bk inp">ler pino digital <i>2 ▾</i></span> = <i>1</i></span> então</div>
+          <div class="bk-in"><div class="bk out">definir pino <i>13 ▾</i> como <i>ALTO ▾</i></div></div>
+          <div class="bk-h">senão</div>
+          <div class="bk-in"><div class="bk out">definir pino <i>13 ▾</i> como <i>BAIXO ▾</i></div></div>
+          <div class="bk-f"></div>
+        </div>
+        <div class="bk-legend"><span class="ctl">Controle</span><span class="math">Matemática</span><span class="inp">Entrada</span><span class="out">Saída</span></div>
+      </div>
+      <div>
+        <ol class="howto sm anim">
+          <li>Clique em <b>Código</b>, mantenha <b>Blocos</b> e arraste os blocos de exemplo para a lixeira.</li>
+          <li><b>Controle:</b> arraste o bloco <b>se … então … senão</b>.</li>
+          <li><b>Matemática:</b> encaixe a comparação <b>=</b> no espaço do “se”.</li>
+          <li><b>Entrada:</b> coloque <b>ler pino digital</b> à esquerda, pino <b>2</b>; à direita, digite <b>1</b>.</li>
+          <li><b>Saída:</b> <b>definir pino 13 como ALTO</b> no “então” e <b>BAIXO</b> no “senão”.</li>
+          <li><b>Iniciar simulação</b> e clique no botão.</li>
+        </ol>
+        <p class="note anim">Os blocos se repetem sem parar enquanto a simulação roda: o Arduino pergunta pelo botão milhares de vezes por segundo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 1 · Desafios">
+  <div class="content">
+    <h2 class="title anim">Desafios para terminar a aula</h2>
+    <div class="cards" style="--c:3">
+      <div class="card anim"><h3>1 · Ao contrário</h3><p>Faça o LED ficar aceso com o botão <b>solto</b> e apagar ao apertar. Basta trocar um número.</p></div>
+      <div class="card anim"><h3>2 · Temporizador</h3><p>Ao soltar o botão, o LED deve continuar aceso por mais 2 s. Use o bloco <b>aguardar</b> (Controle).</p></div>
+      <div class="card hot anim"><h3>3 · Dois botões</h3><p>Acrescente um botão no pino 3: o LED só acende com os <b>dois</b> apertados. Procure o bloco <b>e</b> em Matemática.</p></div>
+    </div>
+    <p class="callout anim">Salve o circuito no Tinkercad com o nome <b>Dia1_HelloWorld_SeuNome</b>. Depois, escolha <b>Blocos + Texto</b> para espiar o código que os blocos geram: é o assunto dos próximos encontros.</p>
   </div>
 </section>
 
 <section class="slide" data-theme="Dia 1 · Revisão">
   <div class="content">
-    <h2 class="title sm anim">Os conceitos do primeiro encontro</h2>
-    <div class="cards" style="--c:3">
-      <div class="card anim"><h3>Arquitetura</h3><p>CPU, memória de programa (Flash), memória de dados (SRAM), EEPROM, portas de E/S, timers e conversor A/D num único chip.</p></div>
-      <div class="card anim"><h3>Algoritmo</h3><p>Sequência finita e ordenada de passos para resolver um problema. É descrito em texto, fluxograma ou pseudocódigo antes de virar código.</p></div>
-      <div class="card anim"><h3>Programação</h3><p>Escrever o código em C/C++, compilar, gravar na Flash e testar. No Arduino, o programa se chama <b>sketch</b>.</p></div>
-      <div class="card anim"><h3>Arduino × microcontrolador</h3><p>O microcontrolador é o chip (ATmega328P). O Arduino é a <b>placa</b> com o chip, regulador, USB e conectores, mais a IDE e as bibliotecas.</p></div>
-      <div class="card anim"><h3>Firmware × software</h3><p><b>Firmware</b> fica gravado no dispositivo e controla o hardware diretamente. <b>Software</b> roda sobre um sistema operacional, num computador.</p></div>
-      <div class="card hot anim"><h3>Tinkercad</h3><p>Simulador on-line da Autodesk: monta o circuito, programa por blocos ou texto e testa sem risco de queimar componentes.</p></div>
-    </div>
+    <div class="chip anim"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5a2 2 0 0 1 4 0v6"/><path d="M13 10a2 2 0 0 1 4 0v3"/><path d="M17 12a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.4L4.5 15a2 2 0 0 1 3.3-2.2L9 14"/></svg>Interação</div>
+    <h2 class="title sm anim">Revisão do dia</h2>
+    <div class="quiz anim" data-q="d1"></div>
+  </div>
+</section>
+<script>QZ.d1={qs:[
+  {q:'Onde fica guardado o programa de um microcontrolador, mesmo sem energia?',o:['SRAM','Flash','Registradores','Conversor A/D'],a:1,e:' A Flash não perde o conteúdo ao desligar. A SRAM guarda as variáveis e apaga.'},
+  {q:'Qual é a principal diferença entre microcontrolador e microprocessador?',o:['O microcontrolador é mais rápido','O microcontrolador já tem memórias e periféricos no chip','O microprocessador não tem CPU','Não há diferença'],a:1,e:' O microcontrolador reúne CPU, memórias e entradas e saídas num único chip.'},
+  {q:'No fluxograma, qual símbolo representa uma decisão?',o:['Retângulo','Oval','Losango','Paralelogramo'],a:2,e:' O losango tem uma pergunta com saídas “sim” e “não”.'},
+  {q:'O programa gravado no Arduino é chamado de:',o:['Software','Firmware','Sistema operacional','Driver'],a:1,e:' Fica gravado no dispositivo e controla o hardware diretamente.'}
+],opts:{end:'Próximo encontro: tipos de dados e expressões.'}};</script>
+
+<section class="slide closing" data-theme="Dia 1 · Encerramento">
+  <div class="content">
+    <ul class="sum">
+      <li class="anim"><b>Microcontrolador</b> = CPU + memórias + periféricos num só chip.</li>
+      <li class="anim"><b>Algoritmo</b> primeiro, depois o fluxograma e só então o código.</li>
+      <li class="anim"><b>Arduino</b> é a plataforma; o <b>firmware</b> é o programa gravado nele.</li>
+    </ul>
+    <h1 class="engrave" aria-label="Próximo: tipos de dados"><span class="ln t1" style="--l:.6"><span class="txt">Próximo: tipos de dados</span><span class="beam"></span></span></h1>
+    <p class="after anim">03/11 · Tipos de dados e expressões aritméticas, relacionais e binárias no Tinkercad.</p>
   </div>
 </section>
 
