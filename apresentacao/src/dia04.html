@@ -230,11 +230,11 @@ FC.d4emerg={w:840,h:760,label:'Fluxograma do loop e da ISR',
   </div>
 </section>
 <script>
-FC.d4timer={w:720,h:500,label:'Fluxograma da tarefa com millis',
-  n:[['d1','dec',250,90,'Passaram|300 ms?',300],['p1','proc',250,250,'anterior = millis()|inverter LED A',300],
-     ['t','term',590,90,'ISR Timer1|a cada 1 s',220],['q','proc',590,250,'inverter LED B',220]],
-  e:[['d1','p1',[],'Sim'],['d1.l','d1.t',['h:50','v:14','h:250'],'Não'],['p1','d1.t',['v:340','h:50','v:14','h:250']],['t','q']],
-  t:[[250,420,'loop()'],[590,420,'interrupção']]};
+FC.d4timer={w:720,h:540,label:'Fluxograma da tarefa com millis',
+  n:[['d1','dec',250,130,'Passaram|300 ms?',300],['p1','proc',250,290,'anterior = millis()|inverter LED A',300],
+     ['t','term',590,130,'ISR Timer1|a cada 1 s',220],['q','proc',590,290,'inverter LED B',220]],
+  e:[['d1','p1',[],'Sim'],['d1.l','d1.t',['h:50','v:24','h:250'],'Não'],['p1','d1.t',['v:380','h:50','v:24','h:250']],['t','q']],
+  t:[[250,470,'loop()'],[590,470,'interrupção']]};
 </script>
 
 <section class="slide" data-theme="Dia 4 · Entrada analógica">

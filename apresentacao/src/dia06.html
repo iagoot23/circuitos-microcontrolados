@@ -239,17 +239,17 @@ WR.d6m2={w:1100,h:880,label:'Montagem 1 com o sensor HC-SR04 em A0 e A1',
   </div>
 </section>
 <script>
-FC.d6m2={w:1000,h:1140,label:'Fluxograma da montagem 2',
+FC.d6m2={w:1000,h:1180,label:'Fluxograma da montagem 2',
   n:[['i','term',300,40,'Início'],['p1','proc',300,130,'Pinos, relé desligado|serial: pedir limiar'],
      ['d1','dec',300,265,'Chegou dado|no serial?',290],['o1','io',720,265,'Ler e validar|novo limiar',300],
      ['o2','io',300,400,'Ler LIGA e DESLIGA'],
      ['d2','dec',300,530,'Passaram|200 ms?',290],['p2','proc',720,530,'Medir d · perto = d < limiar|mostrar no serial',380],
-     ['d3','dec',300,680,'Objeto entrou|na zona agora?',290],['p3','proc',720,680,'rele = ligado',260],
-     ['d4','dec',300,830,'Objeto|na zona?',290],['p5','proc',720,830,'DESLIGA desliga|LIGA liga',300],
-     ['p4','proc',300,970,'Qualquer botão|desliga o relé'],['o3','io',300,1080,'Atualizar a saída do relé',380]],
+     ['d3','dec',300,710,'Objeto entrou|na zona agora?',290],['p3','proc',720,710,'rele = ligado',260],
+     ['d4','dec',300,870,'Objeto|na zona?',290],['p5','proc',720,870,'DESLIGA desliga|LIGA liga',300],
+     ['p4','proc',300,1010,'Qualquer botão|desliga o relé'],['o3','io',300,1120,'Atualizar a saída do relé',380]],
   e:[['i','p1'],['p1','d1'],['d1.r','o1.l',[],'Sim'],['d1','o2',[],'Não'],['o1','o2.r',['v:400']],['o2','d2'],
-     ['d2.r','p2.l',[],'Sim'],['d2','d3',[],'Não'],['p2','d3.t',['v:604']],['d3.r','p3.l',[],'Sim'],['d3','d4',[],'Não'],['p3','d4.t',['v:756']],
-     ['d4','p4',[],'Sim'],['d4.r','p5.l',[],'Não'],['p4','o3'],['p5','o3.r',['v:1080']],['o3.l','d1.l',['h:40','v:265']]]};
+     ['d2.r','p2.l',[],'Sim'],['d2','d3',[],'Não'],['p2','d3.t',['v:612']],['d3.r','p3.l',[],'Sim'],['d3','d4',[],'Não'],['p3','d4.t',['v:776']],
+     ['d4','p4',[],'Sim'],['d4.r','p5.l',[],'Não'],['p4','o3'],['p5','o3.r',['v:1120']],['o3.l','d1.l',['h:40','v:265']]]};
 </script>
 
 <section class="slide" data-theme="Dia 6 · Montagem 2">
