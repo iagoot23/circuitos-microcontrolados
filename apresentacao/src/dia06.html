@@ -1,0 +1,388 @@
+<!-- ===================== DIA 6 · 01/12 · PRÁTICA 1 (BANCADA) ===================== -->
+<section class="slide daycover" data-theme="Dia 6 · Prática 1" data-day="6" data-date="ter, 01/12" data-title="Prática 1: relé e ultrassônico" data-kind="pr" data-badge="Prática na bancada">
+  <div class="content">
+    <div class="dc-head anim"><span class="dc-num">Dia 6</span><span class="dc-date">terça-feira, 01/12</span><span class="dc-tag pr">Prática 1</span></div>
+    <h1 class="engrave" aria-label="Prática 1: relé e ultrassônico">
+      <span class="ln t1" style="--l:0"><span class="txt">Prática 1</span><span class="beam"></span></span>
+      <span class="ln t2" style="--l:.6"><span class="txt">relé e ultrassônico</span><span class="beam"></span></span>
+    </h1>
+    <p class="lead anim">O Arduino real comanda uma lâmpada da rede elétrica com botões e com um sensor de presença.</p>
+    <ol class="agenda anim">
+      <li><b>13:30 · Aula 1</b>Segurança com 127 V e o módulo relé</li>
+      <li class="pr"><b>14:15 · Aula 2</b>Montagem 1: botões LIGA e DESLIGA</li>
+      <li class="pr"><b>15:00 · Aula 3</b>Montagem 1: teste com a lâmpada</li>
+      <li class="pr"><b>16:00 · Aula 4</b>Montagem 2: ultrassônico e limiar pelo serial</li>
+      <li class="pr"><b>16:45 · Aula 5</b>Testes, diagnóstico e organização</li>
+    </ol>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 6 · Segurança">
+  <div class="content">
+    <h2 class="title sm anim">Segurança: o lado de 127 V</h2>
+    <div class="two">
+      <div class="warn anim"><h3>127 V pode matar</h3>
+        <p>O Arduino trabalha com 5 V. Do outro lado do relé está a <b>rede elétrica</b>.</p>
+        <p>Toda ligação de 127 V é feita com o plugue <b>fora da tomada</b>.</p>
+        <p>Use bornes isolados e o soquete da lâmpada fixado; nada de fio desencapado ou emenda solta.</p>
+        <p>O instrutor confere a montagem <b>antes</b> de ligar o plugue (NR-10).</p>
+        <p style="margin:0">Com a rede ligada, <b>não toque</b> no módulo relé nem nos bornes.</p></div>
+      <ol class="howto anim">
+        <li>Monte e teste primeiro <b>só o lado de 5 V</b>: o LED do módulo e o “clique” do relé.</li>
+        <li>Depois, com o plugue fora, ligue a lâmpada nos bornes <b>COM</b> e <b>NA</b>.</li>
+        <li>Chame o instrutor para validar.</li>
+        <li>Só então o plugue vai à tomada.</li>
+        <li>Para qualquer alteração: plugue fora, USB fora.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 6 · Módulo relé">
+  <div class="content">
+    <h2 class="title sm anim">O módulo relé de 1 canal</h2>
+    <div class="two" style="grid-template-columns:1fr 1fr">
+      <div class="fig anim"><div class="w" data-w="wiring" data-d="d6mod"></div></div>
+      <div>
+        <ul class="list sm anim">
+          <li><b>VCC, GND, IN:</b> lado de comando, ligado ao Arduino (5 V).</li>
+          <li>O módulo já tem <b>transistor, diodo e LED</b>: o pino do Arduino só fornece o sinal.</li>
+          <li><b>COM</b> (comum), <b>NA</b> (normalmente aberto) e <b>NF</b> (normalmente fechado): lado de potência, até 10 A em 250 V~.</li>
+          <li>A lâmpada vai em <b>COM + NA</b>: apagada com o relé desligado.</li>
+        </ul>
+        <div class="callout anim" style="font-size:26px">A maioria dos módulos é <b>ativa em LOW</b>: <code>digitalWrite(IN, LOW)</code> liga o relé. Confira a serigrafia ou o jumper do seu módulo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+WR.d6mod={w:900,h:360,label:'Módulo relé com as ligações de comando e de potência',
+  p:[['rele','REL',250,90,{l:'módulo relé 5 V',on:1}]],
+  f:[['r',[120,130],'REL.VCC'],['k',[120,166],'REL.GND'],['o',[120,202],'REL.IN'],['p',[630,130],'REL.NA'],['p',[630,166],'REL.COM'],['w',[630,202],'REL.NF']],
+  t:[[110,136,'5V','lbl','end'],[110,172,'GND','lbl','end'],[110,208,'pino 7','lbl','end'],[640,136,'NA → lâmpada','lbl','start'],[640,172,'COM ← fase','lbl','start'],[640,208,'NF (livre)','lbl','start'],[180,320,'comando: 5 V','lbl'],[580,320,'potência: 127 V~','lbl']]};
+</script>
+
+<section class="slide" data-theme="Dia 6 · Materiais">
+  <div class="content">
+    <h2 class="title anim">Materiais por bancada</h2>
+    <div class="two">
+      <table class="tbl anim">
+        <thead><tr><th>Item</th><th>Qtd.</th></tr></thead>
+        <tbody>
+          <tr><td>Arduino Uno + cabo USB</td><td>1</td></tr>
+          <tr><td>Protoboard e jumpers macho-macho e macho-fêmea</td><td>1 kit</td></tr>
+          <tr><td>Botão de pulso (push button)</td><td>2</td></tr>
+          <tr><td>Módulo relé 5 V, 1 canal</td><td>1</td></tr>
+          <tr><td>Sensor ultrassônico HC-SR04</td><td>1</td></tr>
+          <tr><td>Lâmpada 127 V + soquete + cabo com plugue</td><td>1</td></tr>
+          <tr><td>Chave de fenda pequena (bornes)</td><td>1</td></tr>
+        </tbody>
+      </table>
+      <div>
+        <div class="card anim" style="margin-bottom:22px"><h3>Pinos usados</h3><p><b>D2</b> botão LIGA · <b>D3</b> botão DESLIGA · <b>D7</b> IN do relé · <b>A1</b> TRIG · <b>A0</b> ECHO</p></div>
+        <div class="card hot anim"><h3>Pinos analógicos como digitais</h3><p>A0 a A5 também funcionam como pinos digitais: <code>pinMode(A1, OUTPUT)</code>. Aqui eles deixam os fios do sensor longe da área de 127 V.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 6 · Montagem 1">
+  <div class="content">
+    <h2 class="title sm anim">Montagem 1: liga e desliga · diagrama</h2>
+    <div class="two wl" style="grid-template-columns:1.2fr .8fr">
+      <div class="fig anim"><div class="w" data-w="wiring" data-d="d6m1"></div></div>
+      <div>
+        <table class="tbl sm anim" style="margin-bottom:16px">
+          <thead><tr><th>De</th><th>Para</th></tr></thead>
+          <tbody>
+            <tr><td>Botão LIGA</td><td>D2 e GND</td></tr>
+            <tr><td>Botão DESLIGA</td><td>D3 e GND</td></tr>
+            <tr><td>Relé VCC · GND</td><td>5V · GND</td></tr>
+            <tr><td>Relé IN</td><td>D7</td></tr>
+            <tr><td>Fase da tomada</td><td>COM do relé</td></tr>
+            <tr><td>NA do relé</td><td>lâmpada</td></tr>
+            <tr><td>Lâmpada</td><td>neutro da tomada</td></tr>
+          </tbody>
+        </table>
+        <div class="legend anim"><span><i style="background:#D62828"></i>5 V</span><span><i style="background:#222"></i>GND</span><span><i style="background:#E8490F"></i>sinal</span><span><i style="background:#8E44AD"></i>127 V~</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+WR.d6m1={w:1100,h:870,label:'Botões em D2 e D3, módulo relé em D7 e lâmpada 127 V',
+  p:[['zona','Z',360,8,{w:400,h:330,l:'127 V~: montar sem energia'}],['uno','U',70,380],['rele','REL',120,60,{l:'módulo relé'}],
+     ['lamp','L',560,40,{l:''}],['rede','R',440,170,{l:'',t:'tomada 127 V~'}],
+     ['btn','BD',820,240,{l:'DESLIGA',c:'#D62828'}],['btn','BL',960,240,{l:'LIGA',c:'#2F9E44'}]],
+  f:[['r','U.5V','v:800','h:40','v:100','REL.VCC'],['k','U.GND','v:350','h:70','v:136','REL.GND'],['o','U.7','v:330','h:90','v:172','REL.IN'],
+     ['p','REL.NA','h:400','v:150','h:546','L.a'],['p','R.F','h:620','v:180','h:390','v:136','REL.COM'],['p','L.b','v:150','h:640','v:256','R.N'],
+     ['o','U.3','v:350','h:802','BD.a'],['b','U.2','v:365','h:942','BL.a'],
+     ['k','BD.b','v:320',[1040,320]],['k','BL.b',[978,320]],['k',[1040,320],'v:850','h:406','U.GNDb']]};
+</script>
+
+<section class="slide" data-theme="Dia 6 · Montagem 1">
+  <div class="content">
+    <h2 class="title sm anim">Montagem 1: fluxograma e código</h2>
+    <div class="two" style="grid-template-columns:.85fr 1.15fr;gap:36px">
+      <div class="fig anim"><div class="w" data-w="flow" data-f="d6m1"></div></div>
+      <div>
+        <script type="text/x-arduino" class="sm anim" data-t="Prática 1 · Montagem 1 (liga/desliga)">
+          const byte BTN_LIGA = 2, BTN_DESLIGA = 3, RELE = 7;
+          const byte LIGADO = LOW, DESLIGADO = HIGH;  // módulo ativo em LOW
+          bool rele = false;
+
+          void setup() {
+            pinMode(BTN_LIGA, INPUT_PULLUP);
+            pinMode(BTN_DESLIGA, INPUT_PULLUP);
+            digitalWrite(RELE, DESLIGADO);  // antes do pinMode: sem pulso
+            pinMode(RELE, OUTPUT);
+          }
+
+          void loop() {
+            bool liga = digitalRead(BTN_LIGA) == LOW;
+            bool desliga = digitalRead(BTN_DESLIGA) == LOW;
+
+            if (desliga) {          // desligar tem prioridade
+              rele = false;
+            } else if (liga) {
+              rele = true;
+            }
+            digitalWrite(RELE, rele ? LIGADO : DESLIGADO);
+          }
+        </script>
+        <p class="note anim"><code>condição ? A : B</code> é o operador ternário: vale A se a condição for verdadeira, senão B. É um <code>if/else</code> numa linha.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+FC.d6m1={w:880,h:800,label:'Fluxograma da montagem 1',
+  n:[['i','term',300,40,'Início'],['p1','proc',300,135,'Botões: INPUT_PULLUP|relé desligado'],['o1','io',300,250,'Ler os botões'],
+     ['d1','dec',300,380,'DESLIGA|apertado?',290],['p2','proc',680,380,'rele = desligado',260],
+     ['d2','dec',300,540,'LIGA|apertado?',290],['p3','proc',680,540,'rele = ligado',260],['o2','io',300,680,'Escrever o estado|no pino do relé']],
+  e:[['i','p1'],['p1','o1'],['o1','d1'],['d1.r','p2.l',[],'Sim'],['d1','d2',[],'Não'],['d2.r','p3.l',[],'Sim'],['d2','o2',[],'Não'],
+     ['p2.r','o2.r',['h:850','v:680']],['p3','o2.r',['v:680']],['o2','o1.l',['v:770','h:80','v:250']]]};
+</script>
+
+<section class="slide" data-theme="Dia 6 · Montagem 1">
+  <div class="content">
+    <h2 class="title sm anim">Montagem 1: roteiro de teste</h2>
+    <table class="tbl anim" style="margin-bottom:22px">
+      <thead><tr><th>Passo</th><th>Ação</th><th>Resultado esperado</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Gravar o código, <b>sem</b> a lâmpada ligada</td><td>Relé desligado: LED do módulo apagado</td></tr>
+        <tr><td>2</td><td>Apertar LIGA e soltar</td><td>“Clique”, LED aceso e <b>continua</b> aceso (selo por software)</td></tr>
+        <tr><td>3</td><td>Apertar DESLIGA</td><td>Relé desliga</td></tr>
+        <tr><td>4</td><td>Apertar os dois juntos</td><td>Relé desligado: o DESLIGA domina</td></tr>
+        <tr><td>5</td><td>Instrutor valida e liga a lâmpada</td><td>Repetir os passos 2 a 4 com a lâmpada</td></tr>
+      </tbody>
+    </table>
+    <p class="callout blue anim" style="font-size:27px">É a mesma lógica da <b>auto-retenção com desligar dominante</b> dos comandos elétricos, agora feita no programa e não com contatos.</p>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 6 · Montagem 2">
+  <div class="content">
+    <h2 class="title sm anim">Montagem 2: o sensor também comanda o relé</h2>
+    <div class="cards" style="--c:3;margin-bottom:24px">
+      <div class="card anim"><h3>Monitor serial</h3><p>Mostra a distância 5 vezes por segundo. O usuário digita o <b>limiar</b> em cm (2 a 400) e tecla Enter.</p></div>
+      <div class="card hot anim"><h3>Objeto entrou na zona</h3><p>Quando a distância fica <b>menor que o limiar</b>, a saída D7 liga o relé, sem tocar nos botões.</p></div>
+      <div class="card anim"><h3>Dentro da zona</h3><p><b>Os dois botões desligam.</b> O relé só volta a ligar sozinho quando o objeto sair e entrar de novo.</p></div>
+    </div>
+    <div class="box anim"><h3>Por que “entrou agora” e não “está perto”?</h3><p>Se o programa ligasse o relé sempre que <code>d &lt; limiar</code>, ele religaria logo depois do DESLIGA. Por isso o código guarda o estado anterior (<code>pertoAntes</code>) e só liga na <b>borda</b>: o mesmo truque do botão no dia 3.</p></div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 6 · Montagem 2">
+  <div class="content">
+    <h2 class="title sm anim">Montagem 2: diagrama</h2>
+    <div class="two wl" style="grid-template-columns:1.25fr .75fr">
+      <div class="fig anim"><div class="w" data-w="wiring" data-d="d6m2"></div></div>
+      <div>
+        <table class="tbl sm anim" style="margin-bottom:16px">
+          <thead><tr><th>HC-SR04</th><th>Arduino</th></tr></thead>
+          <tbody><tr><td>VCC</td><td>5V</td></tr><tr><td>TRIG</td><td>A1</td></tr><tr><td>ECHO</td><td>A0</td></tr><tr><td>GND</td><td>GND</td></tr></tbody>
+        </table>
+        <p class="small anim">O restante continua igual à montagem 1. Fixe o sensor apontado para uma área livre: paredes e mesas próximas geram eco.</p>
+        <div class="legend anim"><span><i style="background:#2B6CD9"></i>TRIG</span><span><i style="background:#2F9E44"></i>ECHO</span><span><i style="background:#8E44AD"></i>127 V~</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+WR.d6m2={w:1100,h:880,label:'Montagem 1 com o sensor HC-SR04 em A0 e A1',
+  p:[['zona','Z',360,8,{w:400,h:330,l:'127 V~: montar sem energia'}],['uno','U',70,380],['rele','REL',120,60,{l:'módulo relé'}],
+     ['lamp','L',560,40,{l:''}],['rede','R',440,170,{l:'',t:'tomada 127 V~'}],
+     ['btn','BD',820,240,{l:'DESLIGA',c:'#D62828'}],['btn','BL',960,240,{l:'LIGA',c:'#2F9E44'}],['sonar','S',760,600,{l:'HC-SR04'}]],
+  f:[['r','U.5V','v:800','h:40','v:100','REL.VCC'],['k','U.GND','v:350','h:70','v:136','REL.GND'],['o','U.7','v:330','h:90','v:172','REL.IN'],
+     ['p','REL.NA','h:400','v:150','h:546','L.a'],['p','R.F','h:620','v:180','h:390','v:136','REL.COM'],['p','L.b','v:150','h:640','v:256','R.N'],
+     ['o','U.3','v:350','h:802','BD.a'],['o','U.2','v:365','h:942','BL.a'],
+     ['k','BD.b','v:320',[1040,320]],['k','BL.b',[978,320]],['k',[1040,320],'v:850','h:406','U.GNDb'],
+     ['b','U.A1','v:790','h:865','S.TRIG'],['g','U.A0','v:810','h:905','S.ECHO'],['r','U.5V','v:830','h:825','S.VCC'],['k','S.GND',[945,850]]]};
+</script>
+
+<section class="slide" data-theme="Dia 6 · Montagem 2">
+  <div class="content">
+    <h2 class="title sm anim">Montagem 2: fluxograma</h2>
+    <div class="two" style="grid-template-columns:1fr .7fr;gap:40px">
+      <div class="fig fit anim"><div class="w" data-w="flow" data-f="d6m2"></div></div>
+      <div>
+        <ul class="list sm anim">
+          <li><b>Serial:</b> só lê se chegou dado; o loop nunca para.</li>
+          <li><b>Medição a cada 200 ms</b> com <code>millis()</code>: os botões continuam sendo lidos o tempo todo.</li>
+          <li><b>Borda de entrada:</b> liga o relé uma única vez.</li>
+          <li><b>Na zona:</b> LIGA e DESLIGA desligam.</li>
+          <li><b>Fora da zona:</b> volta a lógica da montagem 1.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+FC.d6m2={w:1000,h:1140,label:'Fluxograma da montagem 2',
+  n:[['i','term',300,40,'Início'],['p1','proc',300,130,'Pinos, relé desligado|serial: pedir limiar'],
+     ['d1','dec',300,265,'Chegou dado|no serial?',290],['o1','io',720,265,'Ler e validar|novo limiar',300],
+     ['o2','io',300,400,'Ler LIGA e DESLIGA'],
+     ['d2','dec',300,530,'Passaram|200 ms?',290],['p2','proc',720,530,'Medir d · perto = d < limiar|mostrar no serial',380],
+     ['d3','dec',300,680,'Objeto entrou|na zona agora?',290],['p3','proc',720,680,'rele = ligado',260],
+     ['d4','dec',300,830,'Objeto|na zona?',290],['p5','proc',720,830,'DESLIGA desliga|LIGA liga',300],
+     ['p4','proc',300,970,'Qualquer botão|desliga o relé'],['o3','io',300,1080,'Atualizar a saída do relé',380]],
+  e:[['i','p1'],['p1','d1'],['d1.r','o1.l',[],'Sim'],['d1','o2',[],'Não'],['o1','o2.r',['v:400']],['o2','d2'],
+     ['d2.r','p2.l',[],'Sim'],['d2','d3',[],'Não'],['p2','d3.t',['v:604']],['d3.r','p3.l',[],'Sim'],['d3','d4',[],'Não'],['p3','d4.t',['v:756']],
+     ['d4','p4',[],'Sim'],['d4.r','p5.l',[],'Não'],['p4','o3'],['p5','o3.r',['v:1080']],['o3.l','d1.l',['h:40','v:265']]]};
+</script>
+
+<section class="slide" data-theme="Dia 6 · Montagem 2">
+  <div class="content">
+    <script type="text/x-arduino" class="xs c2 anim" data-t="Prática 1 · Montagem 2 (relé + botões + ultrassônico)">
+      const byte BTN_LIGA = 2, BTN_DESLIGA = 3, RELE = 7;
+      const byte TRIG = A1, ECHO = A0;      // analógicos como digitais
+      const byte LIGADO = LOW, DESLIGADO = HIGH;
+
+      int limiar = 20;                      // cm, muda pelo serial
+      bool rele = false, perto = false, pertoAntes = false;
+      unsigned long tLeitura = 0;
+
+      void setup() {
+        pinMode(BTN_LIGA, INPUT_PULLUP);
+        pinMode(BTN_DESLIGA, INPUT_PULLUP);
+        digitalWrite(RELE, DESLIGADO);
+        pinMode(RELE, OUTPUT);
+        pinMode(TRIG, OUTPUT);
+        pinMode(ECHO, INPUT);
+        Serial.begin(9600);
+        Serial.println("Digite o limiar em cm e tecle Enter");
+      }
+
+      float medirDistancia() {
+        digitalWrite(TRIG, LOW);  delayMicroseconds(2);
+        digitalWrite(TRIG, HIGH); delayMicroseconds(10);
+        digitalWrite(TRIG, LOW);
+        unsigned long t = pulseIn(ECHO, HIGH, 30000);
+        if (t == 0) return 999;             // sem eco: nada à frente
+        return t / 58.0;
+      }
+
+      void loop() {
+        if (Serial.available() > 0) {       // novo limiar
+          int v = Serial.parseInt();
+          while (Serial.available() > 0) Serial.read();  // limpa o Enter
+          if (v >= 2 && v <= 400) {
+            limiar = v;
+            Serial.print("Novo limiar: "); Serial.println(limiar);
+          }
+        }
+        bool liga = digitalRead(BTN_LIGA) == LOW;
+        bool desliga = digitalRead(BTN_DESLIGA) == LOW;
+
+        if (millis() - tLeitura >= 200) {   // 5 medidas por segundo
+          tLeitura = millis();
+          float d = medirDistancia();
+          perto = d < limiar;
+          Serial.print("Distancia: "); Serial.print(d, 1);
+          Serial.print(" cm | limiar: "); Serial.println(limiar);
+        }
+        if (perto && !pertoAntes) rele = true;   // objeto entrou
+        pertoAntes = perto;
+
+        if (perto) {                        // na zona: os dois desligam
+          if (liga || desliga) rele = false;
+        } else {                            // fora: lógica da montagem 1
+          if (desliga) rele = false;
+          else if (liga) rele = true;
+        }
+        digitalWrite(RELE, rele ? LIGADO : DESLIGADO);
+      }
+    </script>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 6 · Bancada virtual">
+  <div class="content">
+    {{CHIP}}
+    <h2 class="title sm anim">Antes de energizar: teste a lógica aqui</h2>
+    <div class="w anim" data-w="sonar"></div>
+    <p class="note anim">Mesma lógica do código: aproxime o objeto, mude o limiar, segure os botões dentro e fora da zona.</p>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 6 · Testes">
+  <div class="content">
+    <h2 class="title sm anim">Montagem 2: roteiro de teste</h2>
+    <table class="tbl sm anim">
+      <thead><tr><th>Passo</th><th>Situação</th><th>Resultado esperado</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Nada à frente do sensor</td><td>Serial mostra distância grande (ou 999); botões funcionam como na montagem 1</td></tr>
+        <tr><td>2</td><td>Digitar <kbd>30</kbd> + Enter no monitor serial</td><td>“Novo limiar: 30”</td></tr>
+        <tr><td>3</td><td>Aproximar a mão a menos de 30 cm</td><td>Relé liga sozinho</td></tr>
+        <tr><td>4</td><td>Mão parada na zona, apertar LIGA</td><td>Relé <b>desliga</b> e fica desligado</td></tr>
+        <tr><td>5</td><td>Tirar a mão e aproximar de novo</td><td>Relé liga outra vez</td></tr>
+        <tr><td>6</td><td>Mão fora da zona, LIGA e depois DESLIGA</td><td>Liga e desliga normalmente</td></tr>
+        <tr><td>7</td><td>Digitar <kbd>500</kbd></td><td>Valor ignorado: o limiar continua 30</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 6 · Diagnóstico">
+  <div class="content">
+    <h2 class="title sm anim">Não funcionou? Diagnóstico com método</h2>
+    <table class="tbl anim">
+      <thead><tr><th>Sintoma</th><th>O que verificar</th></tr></thead>
+      <tbody>
+        <tr><td>Relé liga quando deveria desligar</td><td>Módulo ativo em HIGH: troque <code>LIGADO</code> e <code>DESLIGADO</code></td></tr>
+        <tr><td>Botão não faz nada</td><td>Pernas na mesma fileira da protoboard? Use pernas em diagonal. <code>INPUT_PULLUP</code>?</td></tr>
+        <tr><td>Distância sempre 999 ou 0</td><td>TRIG e ECHO trocados? VCC no 5 V? Sensor encostado em algo?</td></tr>
+        <tr><td>Monitor com símbolos estranhos</td><td>Velocidade do monitor diferente de 9600</td></tr>
+        <tr><td>Arduino reinicia ao ligar o relé</td><td>Fonte fraca pelo USB: use outra porta ou fonte externa</td></tr>
+        <tr><td>LED do módulo acende, lâmpada não</td><td>Plugue na tomada? Fio em COM e NA (não NF)? Lâmpada boa?</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 6 · Revisão">
+  <div class="content">
+    {{CHIP}}
+    <h2 class="title sm anim">Revisão da prática</h2>
+    <div class="quiz anim" data-q="d6"></div>
+  </div>
+</section>
+<script>QZ.d6={qs:[
+  {q:'A lâmpada deve ficar apagada com o relé desligado. Em quais bornes ela é ligada?',o:['COM e NF','COM e NA','NA e NF','VCC e GND'],a:1,e:' O contato NA (normalmente aberto) só fecha com a bobina energizada.'},
+  {q:'Por que o relé só é ligado na borda “objeto entrou”?',o:['Para economizar energia','Para o DESLIGA funcionar com o objeto ainda na zona','Porque o sensor é lento','Por exigência do módulo'],a:1,e:' Se ligasse sempre que d < limiar, o relé religaria logo após o DESLIGA.'},
+  {q:'O módulo é ativo em LOW. Qual comando liga o relé?',o:['digitalWrite(7, HIGH)','digitalWrite(7, LOW)','analogWrite(7, 255)','pinMode(7, INPUT)'],a:1,e:' Ativo em LOW: nível baixo no IN energiza a bobina.'},
+  {q:'Antes de mudar qualquer fio da lâmpada, é preciso:',o:['Desligar só o USB','Tirar o plugue da tomada','Apertar DESLIGA','Mudar o limiar'],a:1,e:' O relé desligado não isola o circuito: a fase continua no COM.'}
+],opts:{end:'Próximo encontro: prática 2 (PWM e LDR) e avaliação prática.'}};</script>
+
+<section class="slide closing" data-theme="Dia 6 · Encerramento">
+  <div class="content">
+    <ul class="sum">
+      <li class="anim"><b>Lado de 127 V</b> se monta sem energia e se liga só depois da conferência.</li>
+      <li class="anim"><b>O módulo relé</b> separa o comando (5 V) da potência (127 V~).</li>
+      <li class="anim"><b>Borda + estado</b> resolvem lógicas como “os dois botões desligam”.</li>
+    </ul>
+    <h1 class="engrave" aria-label="Próximo: prática 2"><span class="ln t1" style="--l:.6"><span class="txt">Próximo: prática 2</span><span class="beam"></span></span></h1>
+    <p class="after anim">04/12 · Formulário assíncrono II &nbsp;·&nbsp; 15/12 · Prática 2 e avaliação prática (20 pontos).</p>
+  </div>
+</section>

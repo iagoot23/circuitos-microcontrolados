@@ -1,0 +1,447 @@
+<!-- ===================== DIA 3 · 10/11 · TINKERCAD + ATIVIDADE EM SALA ===================== -->
+<section class="slide daycover" data-theme="Dia 3 · Abertura" data-day="3" data-date="ter, 10/11" data-title="Decisão, repetição e entrada de dados" data-kind="av" data-badge="Atividade · 20 pts">
+  <div class="content">
+    <div class="dc-head anim"><span class="dc-num">Dia 3</span><span class="dc-date">terça-feira, 10/11</span><span class="dc-tag tk">Tinkercad</span><span class="dc-tag">Atividade avaliativa</span></div>
+    <h1 class="engrave" aria-label="Decisão, repetição e entrada de dados">
+      <span class="ln t1" style="--l:0"><span class="txt">Decisão, repetição</span><span class="beam"></span></span>
+      <span class="ln t2" style="--l:.8"><span class="txt">e entrada de dados</span><span class="beam"></span></span>
+    </h1>
+    <p class="lead anim">Primeiro, o programa aprende a escolher e a repetir. Depois, a atividade em sala no Tinkercad.</p>
+    <ol class="agenda anim">
+      <li><b>13:30 · Aula 1</b>Fluxograma, if/else, switch, for e while</li>
+      <li class="pr"><b>14:15 · Aula 2</b>Botões, pull-up e monitor serial · Simulações 3 e 4</li>
+      <li class="av"><b>15:00 · Aula 3</b>Atividade em sala (Tinkercad)</li>
+      <li class="av"><b>16:00 · Aula 4</b>Atividade em sala</li>
+      <li class="av"><b>16:45 · Aula 5</b>Atividade em sala e entrega</li>
+    </ol>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 3 · Fluxograma">
+  <div class="content">
+    <h2 class="title sm anim">Fluxograma: o algoritmo desenhado</h2>
+    <div class="two wr">
+      <div class="fig anim"><div class="w" data-w="flow" data-f="d3simb"></div></div>
+      <div>
+        <ul class="list sm anim">
+          <li><b>Terminal</b> (oval): início e fim.</li>
+          <li><b>Processo</b> (retângulo): uma ação ou um cálculo.</li>
+          <li><b>Entrada/saída</b> (paralelogramo): ler um botão, um sensor, o serial; mostrar uma mensagem.</li>
+          <li><b>Decisão</b> (losango): uma pergunta com resposta <b>sim</b> ou <b>não</b>. Vira um <code>if</code>.</li>
+          <li><b>Setas</b>: mostram a ordem. Uma seta que volta para cima é uma <b>repetição</b>.</li>
+        </ul>
+        <p class="callout blue anim" style="font-size:27px">Toda prática desta UC começa pelo fluxograma: se o desenho está certo, o código sai quase sozinho.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+FC.d3simb={w:760,h:760,label:'Exemplo de fluxograma com decisão',
+  n:[['i','term',300,46,'Início'],['p1','proc',300,150,'Configurar pinos'],['o1','io',300,270,'Ler o botão'],
+     ['d1','dec',300,410,'Botão|apertado?'],['p2','proc',300,560,'Ligar o LED'],['p3','proc',640,560,'Desligar|o LED',220]],
+  e:[['i','p1'],['p1','o1'],['o1','d1'],['d1','p2',[],'Sim'],['d1.r','p3',[],'Não'],
+     ['p2','o1.l',['v:660','h:60','v:270']],['p3','o1.l',['v:660','h:60','v:270']]],
+  t:[]};
+</script>
+
+<section class="slide" data-theme="Dia 3 · Decisão">
+  <div class="content">
+    <h2 class="title sm anim">Estruturas de decisão: if, else if, else</h2>
+    <div class="two">
+      <div>
+        <ul class="list sm anim">
+          <li><code>if (condição) { … }</code> executa o bloco só se a condição for verdadeira.</li>
+          <li><code>else</code> é o caminho do “não”.</li>
+          <li><code>else if</code> encadeia várias faixas: a primeira verdadeira vence, as outras são ignoradas.</li>
+          <li>A condição usa as expressões relacionais e lógicas do dia 2.</li>
+        </ul>
+        <div class="box anim" style="margin-top:20px"><h3>Leia em voz alta</h3><p>“<b>Se</b> a temperatura for maior que 30, ligue o ventilador; <b>senão, se</b> for menor que 18, ligue o aquecedor; <b>senão</b>, desligue os dois.”</p></div>
+      </div>
+      <script type="text/x-arduino" class="anim" data-t="Decisão por faixas">
+        float temp = 26.5;
+
+        if (temp > 30) {
+          digitalWrite(VENTILADOR, HIGH);
+          digitalWrite(AQUECEDOR, LOW);
+        } else if (temp < 18) {
+          digitalWrite(VENTILADOR, LOW);
+          digitalWrite(AQUECEDOR, HIGH);
+        } else {
+          digitalWrite(VENTILADOR, LOW);
+          digitalWrite(AQUECEDOR, LOW);
+        }
+      </script>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 3 · Decisão">
+  <div class="content">
+    <h2 class="title sm anim">Decisão por casos: switch</h2>
+    <div class="two">
+      <div>
+        <ul class="list sm anim">
+          <li>Compara <b>uma variável</b> com vários valores fixos (números ou caracteres).</li>
+          <li>Cada <code>case</code> termina com <code>break</code>; sem ele, a execução “cai” no caso seguinte.</li>
+          <li><code>default</code> trata qualquer valor não previsto.</li>
+          <li>Ideal para <b>menus</b> e <b>comandos</b> recebidos pelo serial e para <b>máquinas de estado</b>.</li>
+        </ul>
+      </div>
+      <script type="text/x-arduino" class="anim" data-t="Modos de operação">
+        switch (modo) {
+          case 0:
+            Serial.println("Parado");
+            break;
+          case 1:
+            Serial.println("Manual");
+            break;
+          case 2:
+            Serial.println("Automatico");
+            break;
+          default:
+            Serial.println("Modo invalido");
+        }
+      </script>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 3 · Repetição">
+  <div class="content">
+    <h2 class="title sm anim">Estruturas de repetição: for, while, do…while</h2>
+    <div class="cards" style="--c:3;margin-bottom:24px">
+      <div class="card anim"><h3><code>for</code></h3><p>Quando se sabe <b>quantas vezes</b> repetir.</p><p style="margin-top:8px"><code>for (int i = 0; i &lt; 5; i++)</code><br>início · condição · passo</p></div>
+      <div class="card anim"><h3><code>while</code></h3><p>Repete <b>enquanto</b> a condição for verdadeira. Testa <b>antes</b>: pode não executar nenhuma vez.</p></div>
+      <div class="card anim"><h3><code>do … while</code></h3><p>Executa e <b>depois</b> testa: roda pelo menos uma vez.</p></div>
+    </div>
+    <div class="two">
+      <script type="text/x-arduino" class="sm anim" data-t="for: sequencial de LEDs nos pinos 2 a 6">
+        for (int pino = 2; pino <= 6; pino++) {
+          digitalWrite(pino, HIGH);
+          delay(200);
+          digitalWrite(pino, LOW);
+        }
+      </script>
+      <script type="text/x-arduino" class="sm anim" data-t="while: espera o botão ser solto">
+        // trava aqui enquanto o botão estiver apertado
+        while (digitalRead(BOTAO) == LOW) {
+          // não faz nada
+        }
+        Serial.println("Botao solto");
+      </script>
+    </div>
+    <p class="note anim">O próprio <code>loop()</code> já é uma repetição infinita. Um <code>while</code> ou <code>delay</code> longo <b>bloqueia</b> o programa: nada mais é lido enquanto ele roda.</p>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 3 · Entrada digital">
+  <div class="content">
+    <h2 class="title sm anim">Entrada digital: botões e resistor de pull-up</h2>
+    <div class="two wr">
+      <div class="fig anim">
+        <svg viewBox="0 0 700 520" role="img" aria-label="Pino flutuante, pull-down e pull-up">
+          <g font-size="22" font-weight="700" fill="#1A2366" text-anchor="middle">
+            <text x="120" y="36">Flutuante</text><text x="350" y="36">Pull-down</text><text x="580" y="36">INPUT_PULLUP</text>
+          </g>
+          <g stroke="#1A2366" stroke-width="4" fill="none">
+            <!-- flutuante -->
+            <path d="M120 80 V150 M120 210 V300"/><path d="M120 150 l30 50"/><text x="160" y="185" font-size="18" fill="#525B70" stroke="none">S</text>
+            <circle cx="120" cy="300" r="8" fill="#E8490F" stroke="none"/>
+            <!-- pull-down -->
+            <path d="M350 80 V150 M350 210 V300 V340 M350 420 V470"/><path d="M350 150 l30 50"/>
+            <rect x="335" y="340" width="30" height="80" fill="#E8D2A6"/><path d="M325 470 h50 M335 482 h30 M345 494 h10"/>
+            <circle cx="350" cy="300" r="8" fill="#E8490F" stroke="none"/><path d="M350 300 H410"/>
+            <!-- pull-up -->
+            <path d="M580 80 V110 M580 190 V300 V340 M580 400 V470"/><rect x="565" y="110" width="30" height="80" fill="#E8D2A6"/>
+            <path d="M580 340 l30 50"/><path d="M555 470 h50 M565 482 h30 M575 494 h10"/>
+            <circle cx="580" cy="300" r="8" fill="#E8490F" stroke="none"/><path d="M580 300 H640"/>
+            <rect x="520" y="60" width="160" height="350" rx="14" stroke="#E8490F" stroke-dasharray="10 8"/>
+          </g>
+          <g font-size="19" fill="#525B70">
+            <text x="120" y="72" text-anchor="middle">5 V</text><text x="350" y="72" text-anchor="middle">5 V</text><text x="580" y="72" text-anchor="middle">5 V</text>
+            <text x="135" y="330">pino</text><text x="415" y="306">pino</text><text x="645" y="306">pino</text>
+            <text x="375" y="388">10 kΩ</text><text x="604" y="158">≈ 35 kΩ</text>
+            <text x="600" y="436" fill="#B8380A" font-weight="700">dentro do chip</text>
+          </g>
+          <g font-size="19" font-weight="700" text-anchor="middle">
+            <text x="120" y="400" fill="#B8380A">solto: lê ruído</text>
+            <text x="350" y="512" fill="#1A2366">solto = LOW</text>
+            <text x="580" y="512" fill="#1A2366">solto = HIGH</text>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <ul class="list sm anim">
+          <li><code>digitalRead(pino)</code> devolve <code>HIGH</code> (≈ 5 V) ou <code>LOW</code> (≈ 0 V).</li>
+          <li>Pino sem nada ligado fica <b>flutuando</b> e lê valores aleatórios.</li>
+          <li><code>pinMode(pino, INPUT_PULLUP)</code> liga um resistor interno ao 5 V: o botão vai do pino ao <b>GND</b>, sem resistor externo.</li>
+          <li>Com pull-up a lógica é <b>invertida</b>: apertado = <code>LOW</code>.</li>
+        </ul>
+        <div class="codeline anim">bool apertado = digitalRead(2) == LOW;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 3 · Entrada digital">
+  <div class="content">
+    <h2 class="title sm anim">Detectar o toque, não o botão apertado</h2>
+    <div class="two">
+      <div>
+        <p class="anim" style="margin-top:0">O <code>loop()</code> roda milhares de vezes por segundo. Se o código só pergunta “está apertado?”, um toque vira <b>centenas</b> de comandos.</p>
+        <ul class="list sm anim">
+          <li><b>Borda de descida:</b> agora está apertado <b>e</b> antes não estava.</li>
+          <li>Guarde o estado anterior numa variável e compare.</li>
+          <li><b>Bounce:</b> o contato mecânico trepida por alguns milissegundos. Um <code>delay(30)</code> após a borda resolve nos botões comuns.</li>
+        </ul>
+      </div>
+      <script type="text/x-arduino" class="anim" data-t="Toque alterna o LED (toggle)">
+        const byte BOTAO = 2, LED = 13;
+        bool anterior = HIGH;   // solto (pull-up)
+        bool ligado = false;
+
+        void setup() {
+          pinMode(BOTAO, INPUT_PULLUP);
+          pinMode(LED, OUTPUT);
+        }
+
+        void loop() {
+          bool atual = digitalRead(BOTAO);
+          if (anterior == HIGH && atual == LOW) {
+            ligado = !ligado;           // inverte
+            digitalWrite(LED, ligado);
+            delay(30);                  // antirrepique
+          }
+          anterior = atual;
+        }
+      </script>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 3 · Monitor serial">
+  <div class="content">
+    <h2 class="title sm anim">Entrada de dados pelo monitor serial</h2>
+    <table class="tbl anim" style="margin-bottom:24px">
+      <thead><tr><th>Comando</th><th>O que faz</th></tr></thead>
+      <tbody>
+        <tr><td><code>Serial.available()</code></td><td>Quantos bytes chegaram e ainda não foram lidos (0 = nada novo).</td></tr>
+        <tr><td><code>Serial.read()</code></td><td>Lê <b>um caractere</b> (<code>char</code>) e o retira da fila.</td></tr>
+        <tr><td><code>Serial.parseInt()</code></td><td>Lê os dígitos e devolve um número inteiro. <code>parseFloat()</code> devolve <code>float</code>.</td></tr>
+        <tr><td><code>Serial.readStringUntil('\n')</code></td><td>Lê um texto até o Enter.</td></tr>
+      </tbody>
+    </table>
+    <div class="cards" style="--c:2">
+      <div class="card anim"><h3>Sempre pergunte antes</h3><p><code>if (Serial.available() &gt; 0)</code>: só lê se chegou algo. Assim o loop continua livre.</p></div>
+      <div class="card hot anim"><h3>Fim de linha</h3><p>O monitor envia um <b>Enter</b> (<code>'\n'</code>) após o texto. Ignore esse caractere no <code>switch</code> ou esvazie a fila depois de ler.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 3 · Simulação 3">
+  <div class="content">
+    <h2 class="title sm anim">Simulação 3: comandos pelo monitor serial</h2>
+    <div class="two wr" style="grid-template-columns:.62fr 1.38fr;gap:36px">
+      <div>
+        <div class="fig anim" style="margin-bottom:16px"><div class="w" data-w="flow" data-f="d3menu"></div></div>
+        <p class="small anim">Circuito: Arduino + LED com 220 Ω no <b>pino 13</b> e GND. Digite <kbd>L</kbd>, <kbd>D</kbd> ou <kbd>P</kbd> no monitor serial e tecle Enter.</p>
+      </div>
+      <script type="text/x-arduino" class="sm c2 anim" data-t="Simulação 3 · menu com switch e for">
+        const byte LED = 13;
+
+        void setup() {
+          pinMode(LED, OUTPUT);
+          Serial.begin(9600);
+          Serial.println("L liga, D desliga, P pisca");
+        }
+
+        void loop() {
+          if (Serial.available() > 0) {
+            char c = Serial.read();
+            switch (c) {
+              case 'L': case 'l':
+                digitalWrite(LED, HIGH);
+                Serial.println("LED ligado");
+                break;
+              case 'D': case 'd':
+                digitalWrite(LED, LOW);
+                Serial.println("LED desligado");
+                break;
+              case 'P': case 'p':
+                for (int i = 0; i < 3; i++) {
+                  digitalWrite(LED, HIGH); delay(250);
+                  digitalWrite(LED, LOW);  delay(250);
+                }
+                Serial.println("Piscou 3 vezes");
+                break;
+              case '\n': case '\r':
+                break;          // ignora Enter
+              default:
+                Serial.println("Comando invalido");
+            }
+          }
+        }
+      </script>
+    </div>
+  </div>
+</section>
+<script>
+FC.d3menu={w:760,h:660,label:'Fluxograma do menu serial',
+  n:[['i','term',260,40,'Início'],['p1','proc',260,130,'LED como saída|serial 9600'],
+     ['d1','dec',260,270,'Chegou|caractere?'],['o1','io',260,400,'Ler c'],
+     ['d2','dec',260,530,'Valor de c?',280],['p2','proc',600,530,'L: liga · D: desliga|P: pisca 3×|outro: erro',290]],
+  e:[['i','p1'],['p1','d1'],['d1','o1',[],'Sim'],['d1.l','d1.t',['h:50','v:200','h:260'],'Não'],['o1','d2'],['d2.r','p2.l'],['p2.t','d1.r',['v:270']]]};
+</script>
+
+<section class="slide" data-theme="Dia 3 · Simulação 4">
+  <div class="content">
+    <h2 class="title sm anim">Simulação 4: semáforo de pedestre · montagem</h2>
+    <div class="two wl" style="grid-template-columns:1.15fr .85fr">
+      <div class="fig anim"><div class="w" data-w="wiring" data-d="d3sem"></div></div>
+      <div>
+        <table class="tbl sm anim" style="margin-bottom:16px">
+          <thead><tr><th>Componente</th><th>Pino</th></tr></thead>
+          <tbody>
+            <tr><td>Carros: vermelho</td><td>D12</td></tr>
+            <tr><td>Carros: amarelo</td><td>D11</td></tr>
+            <tr><td>Carros: verde</td><td>D10</td></tr>
+            <tr><td>Pedestre: vermelho</td><td>D9</td></tr>
+            <tr><td>Pedestre: verde</td><td>D8</td></tr>
+            <tr><td>Botão (outro lado no GND)</td><td>D2</td></tr>
+          </tbody>
+        </table>
+        <p class="small anim">Cada LED tem seu resistor de 220 Ω até o GND. O botão usa <code>INPUT_PULLUP</code>: não precisa de resistor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+WR.d3sem={w:1060,h:780,label:'Semáforo com botão',
+  p:[['uno','U',40,340],
+     ['led','CV',300,70,{l:'C vm',c:'#D62828'}],['led','CA',420,70,{l:'C am',c:'#D9A400'}],['led','CG',540,70,{l:'C vd',c:'#2F9E44'}],
+     ['led','PV',680,70,{l:'P vm',c:'#D62828'}],['led','PG',800,70,{l:'P vd',c:'#2F9E44'}],
+     ['res','R1',290,150,{v:1}],['res','R2',410,150,{v:1}],['res','R3',530,150,{v:1}],['res','R4',670,150,{v:1}],['res','R5',790,150,{v:1}],
+     ['btn','B',960,200,{l:'pedestre'}]],
+  f:[['o','U.12','v:268','h:290','R1.b'],['o','U.11','v:280','h:410','R2.b'],['o','U.10','v:292','h:530','R3.b'],['o','U.9','v:304','h:670','R4.b'],['o','U.8','v:316','h:790','R5.b'],
+     ['o','CV.a','R1.a'],['o','CA.a','R2.a'],['o','CG.a','R3.a'],['o','PV.a','R4.a'],['o','PG.a','R5.a'],
+     ['b','U.2','v:330','h:942','B.a'],
+     ['k','CV.k','h:340','v:18','h:217','U.GND'],['k','CA.k','h:460','v:18'],['k','CG.k','h:580','v:18'],['k','PV.k','h:720','v:18'],['k','PG.k','h:840','v:18','h:1030','v:300','h:978','B.b']]};
+</script>
+
+<section class="slide" data-theme="Dia 3 · Simulação 4">
+  <div class="content">
+    <h2 class="title sm anim">Simulação 4: fluxograma e código</h2>
+    <div class="two" style="grid-template-columns:.75fr 1.25fr;gap:36px">
+      <div class="fig anim"><div class="w" data-w="flow" data-f="d3sem"></div></div>
+      <script type="text/x-arduino" class="xs anim" data-t="Simulação 4 · semáforo de pedestre">
+        const byte C_VM = 12, C_AM = 11, C_VD = 10;
+        const byte P_VM = 9, P_VD = 8, BOTAO = 2;
+
+        void setup() {
+          for (byte p = 8; p <= 12; p++) pinMode(p, OUTPUT);
+          pinMode(BOTAO, INPUT_PULLUP);
+        }
+
+        void loop() {
+          // estado normal: carros passam
+          digitalWrite(C_VD, HIGH); digitalWrite(C_AM, LOW);
+          digitalWrite(C_VM, LOW);  digitalWrite(P_VM, HIGH);
+          digitalWrite(P_VD, LOW);
+
+          if (digitalRead(BOTAO) == LOW) {     // pedido
+            delay(1000);
+            digitalWrite(C_VD, LOW); digitalWrite(C_AM, HIGH);
+            delay(2000);                         // amarelo
+            digitalWrite(C_AM, LOW); digitalWrite(C_VM, HIGH);
+            digitalWrite(P_VM, LOW); digitalWrite(P_VD, HIGH);
+            delay(5000);                         // travessia
+            digitalWrite(P_VD, LOW);
+            for (int i = 0; i < 5; i++) {        // aviso
+              digitalWrite(P_VM, HIGH); delay(300);
+              digitalWrite(P_VM, LOW);  delay(300);
+            }
+          }
+        }
+      </script>
+    </div>
+  </div>
+</section>
+<script>
+FC.d3sem={w:740,h:900,label:'Fluxograma do semáforo',
+  n:[['i','term',370,40,'Início'],['p1','proc',370,130,'Pinos 8 a 12: saída|botão: INPUT_PULLUP'],
+     ['p2','proc',370,250,'Carros verde|pedestre vermelho'],['d1','dec',370,385,'Botão|apertado?'],
+     ['p3','proc',370,520,'Carros amarelo 2 s'],['p4','proc',370,620,'Carros vermelho|pedestre verde 5 s'],
+     ['p5','proc',370,740,'Pedestre vermelho|pisca 5 vezes']],
+  e:[['i','p1'],['p1','p2'],['p2','d1'],['d1','p3',[],'Sim'],['d1.r','p2.r',['h:640','v:250'],'Não'],['p3','p4'],['p4','p5'],['p5','p2.l',['v:840','h:110','v:250']]]};
+</script>
+
+<section class="slide" data-theme="Dia 3 · Revisão">
+  <div class="content">
+    {{CHIP}}
+    <h2 class="title sm anim">Revisão antes da atividade</h2>
+    <div class="quiz anim" data-q="d3"></div>
+  </div>
+</section>
+<script>QZ.d3={qs:[
+  {q:'Com pinMode(2, INPUT_PULLUP) e o botão ligado ao GND, o que digitalRead(2) devolve com o botão apertado?',o:['HIGH','LOW','1023','Valor aleatório'],a:1,e:' O botão liga o pino ao GND: apertado = LOW. Solto, o pull-up mantém HIGH.'},
+  {q:'Qual estrutura é a melhor para repetir um bloco exatamente 10 vezes?',o:['if','switch','for','do…while'],a:2,e:' O for já tem início, condição e passo: for (int i = 0; i < 10; i++).'},
+  {q:'No fluxograma, o losango representa:',o:['Um cálculo','Uma decisão (sim/não)','O início','A leitura de um sensor'],a:1,e:' O losango é a decisão e vira um if no código.'},
+  {q:'Esqueceu o break em um case do switch. O que acontece?',o:['Erro de compilação','A execução continua no case seguinte','O Arduino reinicia','Nada muda'],a:1,e:' Sem break, o programa “cai” no próximo case.'}
+],opts:{end:'Agora: atividade em sala no Tinkercad.'}};</script>
+
+<section class="slide" data-theme="Dia 3 · Atividade em sala">
+  <div class="content">
+    <h2 class="title anim">Atividade em sala · 20 pontos</h2>
+    <div class="two">
+      <div class="anim">
+        <ul class="list sm">
+          <li>Individual, no <b>Tinkercad</b>, das <b>15:00 às 17:30</b>.</li>
+          <li>Consulta permitida aos slides e aos circuitos salvos.</li>
+          <li>Um circuito por questão, com o nome <b>Q1_SeuNome</b>, <b>Q2_SeuNome</b>…</li>
+          <li>Desenhe o fluxograma pedido no <b>modelo de atividade</b> entregue.</li>
+          <li>Chame o instrutor para validar cada circuito simulando.</li>
+          <li>Ao final, compartilhe os links dos circuitos conforme orientação.</li>
+        </ul>
+      </div>
+      <div class="box anim">
+        <h3>O que será avaliado</h3>
+        <ul class="list sm">
+          <li>Circuito montado corretamente (resistores, polaridade, GND)</li>
+          <li>Programa funcionando como pedido</li>
+          <li>Uso adequado de tipos, decisões e repetições</li>
+          <li>Fluxograma coerente com o código</li>
+          <li>Organização: nomes de variáveis e comentários</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 3 · Atividade em sala">
+  <div class="content">
+    <h2 class="title sm anim">Questões da atividade</h2>
+    <table class="tbl anim">
+      <thead><tr><th>Questão</th><th>Situação</th><th>Conteúdo</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Cinco LEDs acendem em sequência, ida e volta (efeito “vai e vem”).</td><td><code>for</code>, saída digital</td></tr>
+        <tr><td>2</td><td>Um toque no botão liga o LED; outro toque desliga.</td><td>Pull-up, borda, <code>if</code></td></tr>
+        <tr><td>3</td><td>O usuário digita um número no monitor serial; o Arduino informa se é par ou ímpar e se é maior que 100.</td><td><code>parseInt</code>, <code>%</code>, relacionais</td></tr>
+        <tr><td>4</td><td>Cada toque no botão soma 1 e o valor aparece em binário em 4 LEDs (volta a 0 depois de 15).</td><td>Bit a bit, borda</td></tr>
+        <tr><td>5</td><td>Fluxograma da questão 4 no modelo de atividade.</td><td>Documentação</td></tr>
+      </tbody>
+    </table>
+    <p class="note anim">O enunciado completo e a pontuação de cada questão estão no modelo de atividade.</p>
+  </div>
+</section>
+
+<section class="slide closing" data-theme="Dia 3 · Encerramento">
+  <div class="content">
+    <ul class="sum">
+      <li class="anim"><b>if, else e switch</b> escolhem o caminho; <b>for e while</b> repetem.</li>
+      <li class="anim"><b>INPUT_PULLUP</b> dispensa o resistor: apertado = LOW.</li>
+      <li class="anim"><b>Serial.available()</b> antes de ler: o loop nunca fica preso.</li>
+    </ul>
+    <h1 class="engrave" aria-label="Próximo: interrupções"><span class="ln t1" style="--l:.6"><span class="txt">Próximo: interrupções</span><span class="beam"></span></span></h1>
+    <p class="after anim">17/11 · Interrupções internas e externas, entradas e saídas analógicas.</p>
+  </div>
+</section>

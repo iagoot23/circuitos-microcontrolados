@@ -1,0 +1,276 @@
+<!-- ===================== DIA 7 · 15/12 · PRÁTICA 2 + AVALIAÇÃO PRÁTICA ===================== -->
+<section class="slide daycover" data-theme="Dia 7 · Prática 2" data-day="7" data-date="ter, 15/12" data-title="Prática 2: PWM e LDR" data-kind="pr" data-badge="Avaliação · 20 pts">
+  <div class="content">
+    <div class="dc-head anim"><span class="dc-num">Dia 7</span><span class="dc-date">terça-feira, 15/12</span><span class="dc-tag pr">Prática 2</span><span class="dc-tag">Avaliação prática</span></div>
+    <h1 class="engrave" aria-label="Prática 2: PWM e sensor de luz">
+      <span class="ln t1" style="--l:0"><span class="txt">Prática 2</span><span class="beam"></span></span>
+      <span class="ln t2" style="--l:.6"><span class="txt">PWM e sensor de luz</span><span class="beam"></span></span>
+    </h1>
+    <p class="lead anim">Entrada e saída analógicas na bancada: o potenciômetro controla o brilho e o LDR percebe o escuro.</p>
+    <ol class="agenda anim">
+      <li><b>13:30 · Aula 1</b>Orientações e critérios da avaliação prática</li>
+      <li class="pr"><b>14:15 · Aula 2</b>Montagem 3: gerador PWM com potenciômetro</li>
+      <li class="pr"><b>15:00 · Aula 3</b>Montagem 3: medições e validação</li>
+      <li class="pr"><b>16:00 · Aula 4</b>Montagem 4: LED automático com LDR</li>
+      <li class="pr"><b>16:45 · Aula 5</b>Validação, organização e encerramento da UC</li>
+    </ol>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 7 · Avaliação prática">
+  <div class="content">
+    <h2 class="title sm anim">Avaliação prática · 20 pontos</h2>
+    <div class="two wl">
+      <table class="tbl sm anim">
+        <thead><tr><th>Critério</th><th>Montagem 3</th><th>Montagem 4</th></tr></thead>
+        <tbody>
+          <tr><td>Montagem correta e organizada</td><td>2</td><td>2</td></tr>
+          <tr><td>Programa funcionando como pedido</td><td>3</td><td>3</td></tr>
+          <tr><td>Monitor serial com os valores pedidos</td><td>1</td><td>1</td></tr>
+          <tr><td>Fluxograma coerente com o código</td><td>2</td><td>2</td></tr>
+          <tr><td>Explicação ao instrutor (perguntas orais)</td><td>2</td><td>2</td></tr>
+          <tr><td><b>Total</b></td><td><b>10</b></td><td><b>10</b></td></tr>
+        </tbody>
+      </table>
+      <div>
+        <ul class="list sm anim">
+          <li>Individual ou em dupla, conforme a bancada; cada um responde às perguntas.</li>
+          <li>Consulta permitida aos slides e aos códigos salvos.</li>
+          <li>Chame o instrutor para validar cada montagem funcionando.</li>
+          <li>Entregue os fluxogramas no modelo de atividade.</li>
+        </ul>
+        <p class="note anim">Distribuição sugerida; os pesos finais seguem o instrumento oficial de avaliação.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 7 · Materiais">
+  <div class="content">
+    <h2 class="title anim">Materiais por bancada</h2>
+    <div class="two">
+      <table class="tbl anim">
+        <thead><tr><th>Item</th><th>Qtd.</th></tr></thead>
+        <tbody>
+          <tr><td>Arduino Uno + cabo USB</td><td>1</td></tr>
+          <tr><td>Protoboard e jumpers</td><td>1 kit</td></tr>
+          <tr><td>Potenciômetro 10 kΩ</td><td>1</td></tr>
+          <tr><td>LDR (fotorresistor) 5 mm</td><td>1</td></tr>
+          <tr><td>Resistor 10 kΩ</td><td>1</td></tr>
+          <tr><td>LED de carga + resistor 220 Ω</td><td>2</td></tr>
+          <tr><td>Multímetro</td><td>1</td></tr>
+        </tbody>
+      </table>
+      <div>
+        <div class="card anim" style="margin-bottom:22px"><h3>Montagem 3</h3><p>Potenciômetro em <b>A0</b> · LED em <b>D9</b> (pino com ~, PWM).</p></div>
+        <div class="card anim" style="margin-bottom:22px"><h3>Montagem 4</h3><p>Divisor LDR + 10 kΩ em <b>A0</b> · LED em <b>D8</b> (saída digital).</p></div>
+        <div class="card hot anim"><h3>Carga maior?</h3><p>Para uma fita de LED ou lâmpada de 12 V, o pino comanda um <b>MOSFET</b> ou transistor: o código não muda.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 7 · Montagem 3">
+  <div class="content">
+    <h2 class="title sm anim">Montagem 3: gerador PWM · diagrama</h2>
+    <div class="two wl" style="grid-template-columns:1.2fr .8fr">
+      <div class="fig anim"><div class="w" data-w="wiring" data-d="d7pwm"></div></div>
+      <div>
+        <table class="tbl sm anim" style="margin-bottom:16px">
+          <thead><tr><th>De</th><th>Para</th></tr></thead>
+          <tbody>
+            <tr><td>Potenciômetro: extremidade 1</td><td>GND</td></tr>
+            <tr><td>Potenciômetro: cursor (S)</td><td>A0</td></tr>
+            <tr><td>Potenciômetro: extremidade 3</td><td>5V</td></tr>
+            <tr><td>D9 → 220 Ω → LED</td><td>anodo (perna longa)</td></tr>
+            <tr><td>Catodo do LED</td><td>GND</td></tr>
+          </tbody>
+        </table>
+        <p class="small anim">Se o brilho aumentar girando para o lado “errado”, troque os fios das extremidades do potenciômetro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+WR.d7pwm={w:1000,h:800,label:'Potenciômetro em A0 e LED no pino 9',
+  p:[['uno','U',70,300],['led','LD',520,100,{l:'LED de carga'}],['res','R',510,180,{v:1,l:'220 Ω'}],['pot','P',850,560,{l:'potenciômetro 10 kΩ'}]],
+  f:[['o','U.9','v:300','h:510','R.b'],['o','LD.a','R.a'],['k','LD.k','h:560','v:40','h:247','U.GND'],
+     ['k','U.GNDb','v:720','h:824','P.p1'],['c','U.A0','v:740','h:850','P.w'],['r','U.5V','v:760','h:876','P.p3']]};
+</script>
+
+<section class="slide" data-theme="Dia 7 · Montagem 3">
+  <div class="content">
+    <h2 class="title sm anim">Montagem 3: fluxograma e código</h2>
+    <div class="two" style="grid-template-columns:.75fr 1.25fr;gap:36px">
+      <div class="fig anim"><div class="w" data-w="flow" data-f="d7pwm"></div></div>
+      <script type="text/x-arduino" class="sm anim" data-t="Prática 2 · Montagem 3 (gerador PWM)">
+        const byte POT = A0, LED = 9;      // 9 tem PWM (~)
+
+        void setup() {
+          pinMode(LED, OUTPUT);
+          Serial.begin(9600);
+        }
+
+        void loop() {
+          int leitura = analogRead(POT);            // 0 a 1023
+          int pwm = map(leitura, 0, 1023, 0, 255);  // 0 a 255
+          analogWrite(LED, pwm);
+
+          float tensao = leitura * 5.0 / 1023.0;    // entrada (V)
+          float ciclo = pwm * 100.0 / 255.0;        // %
+
+          Serial.print("A0: ");       Serial.print(leitura);
+          Serial.print(" | ");        Serial.print(tensao, 2);
+          Serial.print(" V | PWM: "); Serial.print(pwm);
+          Serial.print(" | ciclo: "); Serial.print(ciclo, 0);
+          Serial.println(" %");
+          delay(100);
+        }
+      </script>
+    </div>
+  </div>
+</section>
+<script>
+FC.d7pwm={w:640,h:900,label:'Fluxograma do gerador PWM',
+  n:[['i','term',330,40,'Início'],['p1','proc',330,135,'LED (D9) como saída|serial 9600'],['o1','io',330,250,'Ler A0 (0 a 1023)'],
+     ['p2','proc',330,360,'pwm = map(leitura,|0, 1023, 0, 255)'],['o2','io',330,475,'analogWrite(9, pwm)'],
+     ['p3','proc',330,585,'Calcular tensão|e ciclo (%)'],['o3','io',330,700,'Mostrar no serial'],['p4','proc',330,810,'Esperar 100 ms']],
+  e:[['i','p1'],['p1','o1'],['o1','p2'],['p2','o2'],['o2','p3'],['p3','o3'],['o3','p4'],['p4.l','o1.l',['h:40','v:250']]]};
+</script>
+
+<section class="slide" data-theme="Dia 7 · Montagem 3">
+  <div class="content">
+    {{CHIP}}
+    <h2 class="title sm anim">Montagem 3: o que medir</h2>
+    <div class="w anim" data-w="adc"></div>
+    <p class="note anim"><b>Com o multímetro</b> (tensão contínua) entre D9 e GND, a leitura é a <b>média</b> do PWM: compare com a coluna “tensão média”. <b>Desafio:</b> troque o <code>map</code> por <code>leitura &gt;&gt; 2</code>. Por que dá quase o mesmo resultado?</p>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 7 · Montagem 4">
+  <div class="content">
+    <h2 class="title sm anim">Montagem 4: LED automático com LDR · diagrama</h2>
+    <div class="two wl" style="grid-template-columns:1.2fr .8fr">
+      <div class="fig anim"><div class="w" data-w="wiring" data-d="d7ldr"></div></div>
+      <div>
+        <table class="tbl sm anim" style="margin-bottom:16px">
+          <thead><tr><th>De</th><th>Para</th></tr></thead>
+          <tbody>
+            <tr><td>LDR: um terminal</td><td>5V</td></tr>
+            <tr><td>LDR: outro terminal</td><td>A0 e resistor 10 kΩ</td></tr>
+            <tr><td>Resistor 10 kΩ</td><td>GND</td></tr>
+            <tr><td>D8 → 220 Ω → LED</td><td>anodo</td></tr>
+            <tr><td>Catodo do LED</td><td>GND</td></tr>
+          </tbody>
+        </table>
+        <div class="formula anim" style="font-size:32px">V<sub>A0</sub> = 5 × 10 k ÷ (R<sub>LDR</sub> + 10 k)<small>claro: LDR ≈ 1 kΩ → 4,5 V · escuro: LDR ≈ 100 kΩ → 0,45 V</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+WR.d7ldr={w:1000,h:820,label:'Divisor LDR e 10 kΩ em A0 e LED no pino 8',
+  p:[['uno','U',70,300],['led','LD',470,100,{l:'LED'}],['res','R',460,180,{v:1,l:'220 Ω'}],['ldr','L',800,560,{l:'LDR'}],['res','R2',900,640,{v:1,l:'10 kΩ'}]],
+  f:[['o','U.8','v:300','h:460','R.b'],['o','LD.a','R.a'],['k','LD.k','h:510','v:40','h:247','U.GND'],
+     ['r','U.5V','v:780','h:790','L.a'],['c','L.b','v:640','h:900','R2.a'],['c','U.A0','v:720','h:860','v:640',[860,640]],
+     ['k','R2.b','v:790','h:980','v:40',[510,40]]]};
+</script>
+
+<section class="slide" data-theme="Dia 7 · Montagem 4">
+  <div class="content">
+    <h2 class="title sm anim">Montagem 4: fluxograma e código</h2>
+    <div class="two" style="grid-template-columns:.85fr 1.15fr;gap:36px">
+      <div class="fig anim"><div class="w" data-w="flow" data-f="d7ldr"></div></div>
+      <div>
+        <script type="text/x-arduino" class="sm anim" data-t="Prática 2 · Montagem 4 (LED automático)">
+          const byte LDR = A0, LED = 8;
+          const int LIMIAR = 300;   // abaixo disso está escuro
+          const int HIST = 30;      // faixa morta contra pisca-pisca
+          bool aceso = false;
+
+          void setup() {
+            pinMode(LED, OUTPUT);
+            Serial.begin(9600);
+          }
+
+          void loop() {
+            int luz = analogRead(LDR);      // menos luz = menor valor
+            if (!aceso && luz < LIMIAR - HIST) {
+              aceso = true;                 // escureceu
+            } else if (aceso && luz > LIMIAR + HIST) {
+              aceso = false;                // clareou
+            }
+            digitalWrite(LED, aceso);
+
+            Serial.print("Luz: ");   Serial.print(luz);
+            Serial.print(" | LED: "); Serial.println(aceso ? "aceso" : "apagado");
+            delay(200);
+          }
+        </script>
+        <p class="note anim">Calibre o <code>LIMIAR</code>: anote no serial o valor com a sala clara e com o LDR coberto pela mão e use um valor no meio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+FC.d7ldr={w:900,h:820,label:'Fluxograma do LED automático',
+  n:[['i','term',300,40,'Início'],['p1','proc',300,135,'LED (D8) como saída|serial 9600'],['o1','io',300,250,'Ler A0 (luz)'],
+     ['d1','dec',300,385,'Apagado e|luz < 270?',300],['p2','proc',690,385,'aceso = verdadeiro',280],
+     ['d2','dec',300,550,'Aceso e|luz > 330?',300],['p3','proc',690,550,'aceso = falso',280],
+     ['o2','io',300,700,'Escrever LED · serial|esperar 200 ms',360]],
+  e:[['i','p1'],['p1','o1'],['o1','d1'],['d1.r','p2.l',[],'Sim'],['d1','d2',[],'Não'],['d2.r','p3.l',[],'Sim'],['d2','o2',[],'Não'],
+     ['p2.r','o2.r',['h:870','v:700']],['p3','o2.r',['v:700']],['o2','o1.l',['v:780','h:60','v:250']]]};
+</script>
+
+<section class="slide" data-theme="Dia 7 · Montagem 4">
+  <div class="content">
+    {{CHIP}}
+    <h2 class="title sm anim">Montagem 4: histerese na prática</h2>
+    <div class="w anim" data-w="ldr"></div>
+    <p class="note anim">Sem histerese, perto do limiar o LED pisca sem parar: o ruído da leitura cruza o valor várias vezes por segundo. <b>Desafio:</b> use um potenciômetro em A1 para o usuário ajustar o <code>LIMIAR</code>.</p>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 7 · Diagnóstico">
+  <div class="content">
+    <h2 class="title sm anim">Não funcionou? Diagnóstico com método</h2>
+    <table class="tbl anim">
+      <thead><tr><th>Sintoma</th><th>O que verificar</th></tr></thead>
+      <tbody>
+        <tr><td>Leitura de A0 parada em 0 ou 1023</td><td>Cursor do potenciômetro no A0? Extremidades em 5V e GND?</td></tr>
+        <tr><td>Leitura “passeando” sem mexer em nada</td><td>A0 solto (flutuando): falta o fio ou o resistor de 10 kΩ</td></tr>
+        <tr><td>LED só acende ou apaga, sem meio-termo</td><td>Pino sem PWM: use 3, 5, 6, 9, 10 ou 11</td></tr>
+        <tr><td>LED nunca acende</td><td>Polaridade: perna longa (anodo) do lado do resistor e do pino</td></tr>
+        <tr><td>LED do LDR acende com a sala clara</td><td>LDR e 10 kΩ invertidos no divisor, ou limiar fora da faixa medida</td></tr>
+        <tr><td>LED pisca perto do limiar</td><td>Aumente <code>HIST</code> ou proteja o LDR da luz do próprio LED</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 7 · Revisão">
+  <div class="content">
+    {{CHIP}}
+    <h2 class="title sm anim">Revisão final</h2>
+    <div class="quiz anim" data-q="d7"></div>
+  </div>
+</section>
+<script>QZ.d7={qs:[
+  {q:'O potenciômetro está em 1/4 do curso (leitura ≈ 256). Qual valor o map(…, 0, 1023, 0, 255) devolve?',o:['25','64','128','256'],a:1,e:' 256 × 255 ÷ 1023 ≈ 64, ou seja, 25 % de ciclo.'},
+  {q:'O multímetro em D9 mostra 2,5 V com o PWM em 128. Isso significa que:',o:['O pino está queimado','O multímetro mede a média do sinal','O PWM não funciona','O pino gera 2,5 V contínuos'],a:1,e:' O pino alterna entre 0 e 5 V; o multímetro mostra a média.'},
+  {q:'Com mais luz no LDR (divisor 5V–LDR–A0–10k–GND), a leitura em A0:',o:['Diminui','Aumenta','Não muda','Vai a zero'],a:1,e:' A resistência do LDR cai, então a tensão sobre o resistor de 10 kΩ sobe.'},
+  {q:'Para que serve a histerese no LED automático?',o:['Acender mais rápido','Evitar que o LED pisque perto do limiar','Aumentar o brilho','Economizar memória'],a:1,e:' Dois limiares diferentes criam uma faixa em que o estado não muda.'}
+],opts:{end:'Fim da unidade curricular. Bom simulado SAEP!'}};</script>
+
+<section class="slide closing" data-theme="Dia 7 · Encerramento">
+  <div class="content">
+    <ul class="sum">
+      <li class="anim"><b>Algoritmo e fluxograma</b> antes do código; <b>simulação</b> antes da bancada.</li>
+      <li class="anim"><b>Tipos, expressões, decisões e repetições</b> são a base de todo firmware.</li>
+      <li class="anim"><b>Interrupções, ADC, PWM e protocolos</b> ligam o microcontrolador ao mundo real.</li>
+    </ul>
+    <h1 class="engrave" aria-label="Obrigado!"><span class="ln t1" style="--l:.6"><span class="txt">Obrigado!</span><span class="beam"></span></span></h1>
+    <p class="after anim">Circuitos Microcontrolados · Técnico em Automação · SENAI</p>
+    <div class="logos anim"><img src="{{LOGO_SESI}}" alt="SESI"><img src="{{LOGO_SENAI}}" alt="SENAI"></div>
+  </div>
+</section>

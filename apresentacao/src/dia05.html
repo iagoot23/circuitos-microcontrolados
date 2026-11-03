@@ -1,0 +1,325 @@
+<!-- ===================== DIA 5 · 24/11 · AVALIAÇÃO TEÓRICA + TINKERCAD ===================== -->
+<section class="slide daycover" data-theme="Dia 5 · Abertura" data-day="5" data-date="ter, 24/11" data-title="Protocolos de comunicação" data-kind="av" data-badge="Avaliação · 20 pts">
+  <div class="content">
+    <div class="dc-head anim"><span class="dc-num">Dia 5</span><span class="dc-date">terça-feira, 24/11</span><span class="dc-tag">Avaliação teórica</span><span class="dc-tag tk">Tinkercad</span></div>
+    <h1 class="engrave" aria-label="Protocolos de comunicação">
+      <span class="ln t1" style="--l:0"><span class="txt">Protocolos de</span><span class="beam"></span></span>
+      <span class="ln t2" style="--l:.7"><span class="txt">comunicação</span><span class="beam"></span></span>
+    </h1>
+    <p class="lead anim">Primeiro, a avaliação teórica. Depois do intervalo: como o Arduino conversa com sensores, displays e outros equipamentos.</p>
+    <ol class="agenda anim">
+      <li class="av"><b>13:30 · Aula 1</b>Avaliação teórica (dias 1 a 4)</li>
+      <li class="av"><b>14:15 · Aula 2</b>Avaliação teórica</li>
+      <li class="av"><b>15:00 · Aula 3</b>Avaliação teórica e entrega</li>
+      <li><b>16:00 · Aula 4</b>UART, I2C, SPI e redes industriais</li>
+      <li class="pr"><b>16:45 · Aula 5</b>Simulação 8: ultrassônico + LCD I2C · Proteus</li>
+    </ol>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 5 · Avaliação teórica">
+  <div class="content">
+    <h2 class="title anim">Avaliação teórica · 20 pontos</h2>
+    <div class="two">
+      <div class="anim">
+        <ul class="list sm">
+          <li>Individual e sem consulta, das <b>13:30 às 15:45</b>.</li>
+          <li>Celular guardado e desligado durante a prova.</li>
+          <li>Questões objetivas e de leitura de código, como as revisões dos slides.</li>
+          <li>Uma questão pede para completar ou desenhar um <b>fluxograma</b>.</li>
+          <li>Ao terminar, entregue e aguarde em silêncio o intervalo.</li>
+        </ul>
+      </div>
+      <div class="box anim">
+        <h3>Conteúdo</h3>
+        <ul class="list sm">
+          <li>Arquitetura, algoritmos, firmware e software</li>
+          <li>Tipos de dados e estouro</li>
+          <li>Expressões aritméticas, relacionais, lógicas e binárias</li>
+          <li>if, switch, for, while e entrada digital</li>
+          <li>Interrupções, millis(), ADC e PWM</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 5 · Comunicação">
+  <div class="content">
+    <h2 class="title sm anim">Como dois dispositivos trocam dados</h2>
+    <div class="two" style="margin-bottom:26px">
+      <div class="fig anim">
+        <svg viewBox="0 0 760 300" role="img" aria-label="Comunicação paralela e serial">
+          <g font-size="22" font-weight="700" fill="#1A2366"><text x="20" y="34">Paralela: 8 fios, 1 byte por vez</text><text x="20" y="214">Serial: 1 fio, 1 bit por vez</text></g>
+          <g stroke="#27348B" stroke-width="4"><line x1="120" y1="56" x2="640" y2="56"/><line x1="120" y1="72" x2="640" y2="72"/><line x1="120" y1="88" x2="640" y2="88"/><line x1="120" y1="104" x2="640" y2="104"/><line x1="120" y1="120" x2="640" y2="120"/><line x1="120" y1="136" x2="640" y2="136"/><line x1="120" y1="152" x2="640" y2="152"/><line x1="120" y1="168" x2="640" y2="168"/><line x1="120" y1="250" x2="640" y2="250"/></g>
+          <g fill="#E8490F"><circle r="7" cy="56"><animate attributeName="cx" from="120" to="640" dur="2s" repeatCount="indefinite"/></circle><circle r="7" cy="88"><animate attributeName="cx" from="120" to="640" dur="2s" repeatCount="indefinite"/></circle><circle r="7" cy="104"><animate attributeName="cx" from="120" to="640" dur="2s" repeatCount="indefinite"/></circle><circle r="7" cy="152"><animate attributeName="cx" from="120" to="640" dur="2s" repeatCount="indefinite"/></circle>
+            <circle r="7" cy="250"><animate attributeName="cx" from="120" to="640" dur="2s" repeatCount="indefinite"/></circle><circle r="7" cy="250"><animate attributeName="cx" from="120" to="640" dur="2s" begin=".25s" repeatCount="indefinite"/></circle><circle r="7" cy="250"><animate attributeName="cx" from="120" to="640" dur="2s" begin=".75s" repeatCount="indefinite"/></circle></g>
+          <rect x="20" y="46" width="100" height="132" rx="10" fill="#27348B"/><rect x="640" y="46" width="100" height="132" rx="10" fill="#27348B"/>
+          <rect x="20" y="226" width="100" height="48" rx="10" fill="#27348B"/><rect x="640" y="226" width="100" height="48" rx="10" fill="#27348B"/>
+        </svg>
+      </div>
+      <div>
+        <ul class="list sm anim">
+          <li><b>Serial</b> economiza fios e vai mais longe: é o padrão em sensores e redes.</li>
+          <li><b>Assíncrona:</b> sem fio de clock; os dois lados combinam a velocidade (baud rate).</li>
+          <li><b>Síncrona:</b> um fio de clock marca o instante de ler cada bit.</li>
+          <li><b>Full duplex:</b> envia e recebe ao mesmo tempo. <b>Half duplex:</b> um de cada vez.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="callout blue anim" style="font-size:27px;margin-top:0"><b>Protocolo</b> é o conjunto de regras da conversa: níveis de tensão, velocidade, formato do quadro, endereços e confirmação.</p>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 5 · UART">
+  <div class="content">
+    <h2 class="title sm anim">UART: a serial do monitor serial</h2>
+    <div class="fig anim" style="margin-bottom:22px">
+      <svg viewBox="0 0 1640 250" role="img" aria-label="Quadro UART do caractere A">
+        <g font-size="22" font-weight="700" text-anchor="middle" fill="#1A2366">
+          <text x="140" y="36">repouso</text><text x="290" y="36" fill="#B8380A">início</text>
+          <text x="440" y="36">D0</text><text x="590" y="36">D1</text><text x="740" y="36">D2</text><text x="890" y="36">D3</text><text x="1040" y="36">D4</text><text x="1190" y="36">D5</text><text x="1340" y="36">D6</text><text x="1490" y="36">D7</text>
+        </g>
+        <g font-size="24" text-anchor="middle" fill="#525B70"><text x="440" y="226">1</text><text x="590" y="226">0</text><text x="740" y="226">0</text><text x="890" y="226">0</text><text x="1040" y="226">0</text><text x="1190" y="226">0</text><text x="1340" y="226">1</text><text x="1490" y="226">0</text></g>
+        <polyline points="40,70 215,70 215,180 365,180 365,70 515,70 515,180 1265,180 1265,70 1415,70 1415,180 1565,180 1565,70 1630,70" fill="none" stroke="#E8490F" stroke-width="6"/>
+        <g stroke="#D3D8E3" stroke-width="2" stroke-dasharray="6 6"><line x1="215" y1="50" x2="215" y2="200"/><line x1="365" y1="50" x2="365" y2="200"/><line x1="515" y1="50" x2="515" y2="200"/><line x1="1415" y1="50" x2="1415" y2="200"/><line x1="1565" y1="50" x2="1565" y2="200"/></g>
+        <text x="1600" y="36" font-size="22" font-weight="700" fill="#B8380A" text-anchor="middle">fim</text>
+      </svg>
+      <p class="fig-cap">Caractere 'A' = 0x41 = 0b01000001, enviado do bit menos significativo (D0) para o mais significativo (D7).</p>
+    </div>
+    <div class="cards" style="--c:3">
+      <div class="card anim"><h3>Dois fios + GND</h3><p><b>TX</b> de um vai no <b>RX</b> do outro. No Uno: D1 (TX) e D0 (RX), os mesmos do USB.</p></div>
+      <div class="card anim"><h3>Mesma velocidade</h3><p><code>Serial.begin(9600)</code> e o monitor em 9600. Diferente disso, aparecem caracteres estranhos.</p></div>
+      <div class="card hot anim"><h3>Níveis TTL</h3><p>0 V e 5 V. RS-232 (±12 V) e RS-485 (diferencial) precisam de um conversor.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 5 · I2C e SPI">
+  <div class="content">
+    <h2 class="title sm anim">I2C e SPI: barramentos para vários dispositivos</h2>
+    <div class="two">
+      <div class="box anim">
+        <h3>I2C (TWI) · biblioteca Wire</h3>
+        <ul class="list sm">
+          <li>2 fios: <b>SDA</b> (dados) e <b>SCL</b> (clock), com resistores de pull-up.</li>
+          <li>No Uno: <b>A4 = SDA</b> e <b>A5 = SCL</b>.</li>
+          <li>Um <b>mestre</b> e vários escravos, cada um com <b>endereço</b> de 7 bits (ex.: 0x27).</li>
+          <li>Síncrono, half duplex, 100 ou 400 kbit/s.</li>
+          <li>Uso: display LCD com módulo I2C, RTC, sensores de pressão.</li>
+        </ul>
+      </div>
+      <div class="box anim" style="border-color:var(--orange)">
+        <h3 style="color:var(--orange-d)">SPI · biblioteca SPI</h3>
+        <ul class="list sm">
+          <li>4 fios: <b>MOSI</b>, <b>MISO</b>, <b>SCK</b> e <b>SS</b> (seleção).</li>
+          <li>No Uno: D11, D12, D13 e D10.</li>
+          <li>Um fio SS para cada escravo: não usa endereço.</li>
+          <li>Síncrono, full duplex, vários Mbit/s: o mais rápido dos três.</li>
+          <li>Uso: cartão SD, módulos RFID, displays gráficos.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 5 · Protocolos">
+  <div class="content">
+    <h2 class="title sm anim">Comparação e protocolos da indústria</h2>
+    <table class="tbl sm anim" style="margin-bottom:22px">
+      <thead><tr><th></th><th>UART</th><th>I2C</th><th>SPI</th></tr></thead>
+      <tbody>
+        <tr><td><b>Fios</b> (além do GND)</td><td>2 (TX, RX)</td><td>2 (SDA, SCL)</td><td>4 (+1 SS por escravo)</td></tr>
+        <tr><td><b>Clock</b></td><td>não (assíncrono)</td><td>sim</td><td>sim</td></tr>
+        <tr><td><b>Dispositivos</b></td><td>2 (ponto a ponto)</td><td>até 127 por endereço</td><td>vários, um SS cada</td></tr>
+        <tr><td><b>Velocidade</b></td><td>até ~115 kbit/s</td><td>100–400 kbit/s</td><td>vários Mbit/s</td></tr>
+        <tr><td><b>Distância</b></td><td>poucos metros</td><td>dentro da placa</td><td>dentro da placa</td></tr>
+      </tbody>
+    </table>
+    <div class="cards" style="--c:4">
+      <div class="card anim"><h3>RS-485</h3><p>Par diferencial, até 1200 m e 32 equipamentos.</p></div>
+      <div class="card anim"><h3>Modbus RTU</h3><p>Protocolo mestre-escravo sobre RS-485: CLPs, inversores, medidores.</p></div>
+      <div class="card anim"><h3>CAN</h3><p>Veículos e máquinas móveis: robusto a ruído.</p></div>
+      <div class="card hot anim"><h3>Ethernet industrial</h3><p>Modbus TCP, Profinet, EtherNet/IP: Indústria 4.0.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 5 · Sensor ultrassônico">
+  <div class="content">
+    <h2 class="title sm anim">Sensor ultrassônico HC-SR04</h2>
+    <div class="two wr">
+      <div class="fig anim">
+        <svg viewBox="0 0 760 430" role="img" aria-label="Pulsos de TRIG e ECHO">
+          <g font-size="22" font-weight="700" fill="#1A2366"><text x="10" y="60">TRIG</text><text x="10" y="200">som</text><text x="10" y="330">ECHO</text></g>
+          <polyline points="100,80 160,80 160,30 200,30 200,80 740,80" fill="none" stroke="#E8490F" stroke-width="5"/>
+          <text x="180" y="22" font-size="18" fill="#B8380A" text-anchor="middle">10 µs</text>
+          <g stroke="#27348B" stroke-width="3"><line x1="230" y1="170" x2="230" y2="220"/><line x1="240" y1="170" x2="240" y2="220"/><line x1="250" y1="170" x2="250" y2="220"/><line x1="260" y1="170" x2="260" y2="220"/><line x1="270" y1="170" x2="270" y2="220"/><line x1="280" y1="170" x2="280" y2="220"/><line x1="290" y1="170" x2="290" y2="220"/><line x1="300" y1="170" x2="300" y2="220"/></g>
+          <text x="265" y="245" font-size="17" fill="#525B70" text-anchor="middle">8 pulsos de 40 kHz</text>
+          <polyline points="100,350 310,350 310,290 640,290 640,350 740,350" fill="none" stroke="#27348B" stroke-width="5"/>
+          <line x1="310" y1="390" x2="640" y2="390" stroke="#525B70" stroke-width="3" marker-start="url(#ar)" marker-end="url(#ar)"/>
+          <defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#525B70"/></marker></defs>
+          <text x="475" y="420" font-size="19" fill="#1A2366" text-anchor="middle" font-weight="700">t = tempo de ida e volta do som</text>
+        </svg>
+      </div>
+      <div>
+        <ol class="howto sm anim">
+          <li>O Arduino manda um pulso de <b>10 µs</b> no pino TRIG.</li>
+          <li>O sensor emite o ultrassom e coloca ECHO em HIGH.</li>
+          <li>Quando o eco volta, ECHO cai para LOW.</li>
+          <li><code>pulseIn(ECHO, HIGH)</code> mede esse tempo em µs.</li>
+        </ol>
+        <div class="formula anim" style="margin-top:18px">d (cm) = t (µs) ÷ 58<small>som a 343 m/s = 0,0343 cm/µs, dividido por 2 (ida e volta)</small></div>
+        <p class="note anim">Faixa útil: 2 cm a 4 m. Alimentação 5 V, consumo de 15 mA.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 5 · Simulação 8">
+  <div class="content">
+    <h2 class="title sm anim">Simulação 8: medidor de distância · montagem</h2>
+    <div class="two wl" style="grid-template-columns:1.2fr .8fr">
+      <div class="fig anim"><div class="w" data-w="wiring" data-d="d5lcd"></div></div>
+      <div>
+        <table class="tbl sm anim" style="margin-bottom:16px">
+          <thead><tr><th>Pino do módulo</th><th>Arduino</th></tr></thead>
+          <tbody>
+            <tr><td>HC-SR04 VCC · GND</td><td>5V · GND</td></tr>
+            <tr><td>HC-SR04 TRIG</td><td>D9</td></tr>
+            <tr><td>HC-SR04 ECHO</td><td>D10</td></tr>
+            <tr><td>LCD I2C GND · VCC</td><td>GND · 5V</td></tr>
+            <tr><td>LCD I2C SDA · SCL</td><td>A4 · A5</td></tr>
+          </tbody>
+        </table>
+        <p class="small anim">No Tinkercad, use o <b>Sensor de distância ultrassônico (4 pinos)</b> e o <b>LCD 16 × 2 (I2C)</b>. Durante a simulação, clique no sensor e arraste o objeto para mudar a distância.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+WR.d5lcd={w:1260,h:800,label:'HC-SR04 nos pinos 9 e 10 e LCD I2C em A4 e A5',
+  p:[['uno','U',70,260],['sonar','S',760,40,{l:'HC-SR04'}],['lcd','L',800,470,{l:'LCD 16×2 I2C',l1:'Distancia:',l2:'23.5 cm'}]],
+  f:[['o','U.9','v:240','h:865','S.TRIG'],['b','U.10','v:220','h:905','S.ECHO'],
+     ['r','U.5V','v:740','h:24','v:14','h:740','v:200','h:825','S.VCC'],['k','U.GND','v:30','h:1040','v:200','h:945','S.GND'],
+     ['g','U.A5','v:680','h:750','v:598','L.SCL'],['y','U.A4','v:700','h:770','v:566','L.SDA'],
+     ['r','U.5V','v:770','h:790','v:534','L.VCC'],['k','U.GNDb','v:750','h:785','v:502','L.GND']]};
+</script>
+
+<section class="slide" data-theme="Dia 5 · Simulação 8">
+  <div class="content">
+    <h2 class="title sm anim">Simulação 8: fluxograma e código</h2>
+    <div class="two" style="grid-template-columns:.75fr 1.25fr;gap:36px">
+      <div class="fig anim"><div class="w" data-w="flow" data-f="d5lcd"></div></div>
+      <script type="text/x-arduino" class="xs anim" data-t="Simulação 8 · distância no LCD I2C e no serial">
+        #include <Adafruit_LiquidCrystal.h>   // LCD I2C do Tinkercad
+
+        Adafruit_LiquidCrystal lcd(0);       // endereço 0x20
+        const byte TRIG = 9, ECHO = 10;
+
+        void setup() {
+          pinMode(TRIG, OUTPUT);
+          pinMode(ECHO, INPUT);
+          Serial.begin(9600);
+          lcd.begin(16, 2);
+          lcd.setBacklight(1);
+          lcd.print("Distancia:");
+        }
+        void loop() {
+          digitalWrite(TRIG, LOW);  delayMicroseconds(2);
+          digitalWrite(TRIG, HIGH); delayMicroseconds(10);
+          digitalWrite(TRIG, LOW);
+          unsigned long t = pulseIn(ECHO, HIGH);   // µs
+          float d = t / 58.0;                      // cm
+          lcd.setCursor(0, 1);
+          lcd.print(d, 1);
+          lcd.print(" cm      ");                // apaga sobras
+          Serial.print("Distancia: ");
+          Serial.print(d, 1);
+          Serial.println(" cm");
+          delay(250);
+        }
+      </script>
+    </div>
+  </div>
+</section>
+<script>
+FC.d5lcd={w:640,h:820,label:'Fluxograma do medidor de distância',
+  n:[['i','term',320,40,'Início'],['p1','proc',320,135,'Pinos, serial e LCD'],['o0','io',320,240,'LCD: “Distancia:”'],
+     ['p2','proc',320,350,'Pulso de 10 µs|em TRIG'],['o1','io',320,465,'Medir o eco|t = pulseIn(ECHO)'],['p3','proc',320,580,'d = t ÷ 58'],
+     ['o2','io',320,690,'Mostrar d no LCD|e no serial']],
+  e:[['i','p1'],['p1','o0'],['o0','p2'],['p2','o1'],['o1','p3'],['p3','o2'],['o2','p2.l',['v:780','h:60','v:350']]]};
+</script>
+
+<section class="slide" data-theme="Dia 5 · Ensaio da prática 1">
+  <div class="content">
+    <h2 class="title sm anim">Ensaio da prática 1 no Tinkercad</h2>
+    <p class="lead sm anim">Monte no simulador o circuito do próximo encontro (dia 6) antes de ir para a bancada. O código é o mesmo; mudam alguns componentes:</p>
+    <table class="tbl sm anim" style="margin-bottom:22px">
+      <thead><tr><th>Na bancada</th><th>No Tinkercad</th><th>Motivo</th></tr></thead>
+      <tbody>
+        <tr><td>Módulo relé 5 V (ativo em LOW)</td><td><b>Relé SPDT</b> + transistor NPN + diodo + resistor 1 kΩ</td><td>Não há módulo pronto; o transistor faz o papel do driver do módulo</td></tr>
+        <tr><td>Lâmpada 127 V na tomada</td><td><b>Lâmpada</b> + <b>fonte de alimentação</b> CC de 12 V</td><td>O simulador não tem rede elétrica CA</td></tr>
+        <tr><td>Sensor HC-SR04</td><td>Sensor de distância ultrassônico (4 pinos)</td><td>Igual</td></tr>
+        <tr><td>Botões com <code>INPUT_PULLUP</code></td><td>Botões, ligados entre o pino e o GND</td><td>Igual</td></tr>
+      </tbody>
+    </table>
+    <p class="callout anim" style="font-size:26px">Atenção: com transistor, o relé liga com <b>HIGH</b>. No módulo da bancada, geralmente com <b>LOW</b>. No código do dia 6, basta trocar as constantes <code>LIGADO</code> e <code>DESLIGADO</code>.</p>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 5 · Proteus">
+  <div class="content">
+    <h2 class="title sm anim">Simulação por software: Tinkercad e Proteus</h2>
+    <div class="two">
+      <div>
+        <table class="tbl sm anim" style="margin-bottom:18px">
+          <thead><tr><th></th><th>Tinkercad</th><th>Proteus 8</th></tr></thead>
+          <tbody>
+            <tr><td><b>Onde roda</b></td><td>Navegador, grátis</td><td>Windows, licença</td></tr>
+            <tr><td><b>Código</b></td><td>Editor próprio</td><td>Arquivo <code>.hex</code> da Arduino IDE</td></tr>
+            <tr><td><b>Componentes</b></td><td>Lista fixa, didática</td><td>Milhares + bibliotecas</td></tr>
+            <tr><td><b>Esquema</b></td><td>Visual (protoboard)</td><td>Elétrico e placa (PCB)</td></tr>
+          </tbody>
+        </table>
+        <p class="note anim">Simular antes de montar evita queimar componentes e encontra erros de lógica com segurança.</p>
+      </div>
+      <div>
+        <h3 class="anim" style="font-size:30px;margin:0 0 12px">Rodar um sketch no Proteus</h3>
+        <ol class="howto sm anim">
+          <li>Instale a biblioteca de Arduino e sensores na pasta <b>LIBRARY</b> do Proteus.</li>
+          <li>Na Arduino IDE: <b>Sketch › Exportar binário compilado</b> (gera o <code>.hex</code>).</li>
+          <li>No Proteus, posicione o Arduino Uno e os componentes; ligue os fios.</li>
+          <li>Duplo clique no Arduino › <b>Program File</b> › escolha o <code>.hex</code>.</li>
+          <li>Use o <b>Virtual Terminal</b> (TX/RX) como monitor serial e clique em ▶.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 5 · Revisão">
+  <div class="content">
+    {{CHIP}}
+    <h2 class="title sm anim">Revisão do dia</h2>
+    <div class="quiz anim" data-q="d5"></div>
+  </div>
+</section>
+<script>QZ.d5={qs:[
+  {q:'Quais pinos do Uno formam o barramento I2C?',o:['D0 e D1','A4 (SDA) e A5 (SCL)','D10 a D13','D2 e D3'],a:1,e:' SDA em A4 e SCL em A5.'},
+  {q:'Na UART, o pino TX do Arduino deve ser ligado ao:',o:['TX do outro','RX do outro','SCL do outro','5 V'],a:1,e:' O que um transmite, o outro recebe: TX → RX.'},
+  {q:'pulseIn devolveu 1160 µs no HC-SR04. A distância é de aproximadamente:',o:['11,6 cm','20 cm','58 cm','116 cm'],a:1,e:' 1160 ÷ 58 = 20 cm.'},
+  {q:'Qual protocolo seleciona o escravo por um fio próprio (SS), sem endereço?',o:['I2C','UART','SPI','Modbus'],a:2,e:' No SPI, cada escravo tem seu pino de seleção.'}
+],opts:{end:'Próximo encontro: prática 1 na bancada, com relé e lâmpada 127 V.'}};</script>
+
+<section class="slide closing" data-theme="Dia 5 · Encerramento">
+  <div class="content">
+    <ul class="sum">
+      <li class="anim"><b>UART</b> liga dois equipamentos; <b>I2C</b> e <b>SPI</b> ligam vários na mesma placa.</li>
+      <li class="anim"><b>RS-485, Modbus e CAN</b> levam a comunicação ao chão de fábrica.</li>
+      <li class="anim"><b>HC-SR04:</b> distância = tempo do eco ÷ 58.</li>
+    </ul>
+    <h1 class="engrave" aria-label="Próximo: bancada"><span class="ln t1" style="--l:.6"><span class="txt">Próximo: bancada</span><span class="beam"></span></span></h1>
+    <p class="after anim">01/12 · Prática 1: relé, lâmpada 127 V e sensor ultrassônico. 04/12 · Formulário assíncrono II.</p>
+  </div>
+</section>

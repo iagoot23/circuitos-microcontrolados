@@ -1,0 +1,89 @@
+<!-- ===================== ABERTURA DA UC ===================== -->
+<section class="slide cover" data-theme="Abertura">
+  <div class="content">
+    <div class="logos anim"><img src="{{LOGO_SESI}}" alt="SESI"><img src="{{LOGO_SENAI}}" alt="SENAI"></div>
+    <h1 class="engrave" aria-label="Circuitos Microcontrolados">
+      <span class="ln" style="--l:0;font-size:150px"><span class="txt">Circuitos</span><span class="beam"></span></span>
+      <span class="ln" style="--l:.8;font-size:150px;color:var(--blue);font-style:italic"><span class="txt">Microcontrolados</span><span class="beam"></span></span>
+    </h1>
+    <p class="members anim">Programação, simulação e montagem com Arduino</p>
+  </div>
+</section>
+
+<section class="slide backcover" data-theme="Abertura">
+  <div class="content">
+    <h1 class="engrave" aria-label="Técnico em Automação">
+      <span class="ln" style="--l:0;font-size:130px"><span class="txt">Técnico em</span><span class="beam"></span></span>
+      <span class="ln" style="--l:.9;font-size:130px;color:var(--orange);font-style:italic"><span class="txt">Automação</span><span class="beam"></span></span>
+    </h1>
+    <dl class="credits anim">
+      <dt>Unidade curricular</dt><dd>Circuitos Microcontrolados</dd>
+      <dt>Instrutor</dt><dd>Iago Teixeira</dd>
+      <dt>Encontros</dt><dd>7 presenciais + 2 assíncronos · 13:30 às 17:30</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="slide" data-theme="Abertura">
+  <div class="content">
+    <h2 class="title sm anim">Mapa da unidade curricular</h2>
+    <p class="lead sm anim">Clique em um dia para abrir a aula. O botão <b>Dias</b> no rodapé (ou a tecla <kbd>M</kbd>) abre este mapa.</p>
+    <div class="daymap anim"></div>
+    <div class="asyncrow anim">
+      <div><b>06/11 · Aula assíncrona I</b> — Formulário I (10 pontos): arquitetura, algoritmos, tipos de dados e expressões.</div>
+      <div><b>04/12 · Aula assíncrona II</b> — Formulário II (10 pontos): interrupções, sinais analógicos e protocolos de comunicação.</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Abertura">
+  <div class="content">
+    <h2 class="title anim">Avaliação e frequência</h2>
+    <div class="two wl">
+      <table class="tbl anim">
+        <thead><tr><th>Instrumento</th><th>Data</th><th>Pontos</th></tr></thead>
+        <tbody>
+          <tr><td>Formulário assíncrono I</td><td>06/11</td><td>10</td></tr>
+          <tr><td>Atividade em sala (Tinkercad)</td><td>10/11</td><td>20</td></tr>
+          <tr><td>Avaliação teórica</td><td>24/11</td><td>20</td></tr>
+          <tr><td>Formulário assíncrono II</td><td>04/12</td><td>10</td></tr>
+          <tr><td>Simulado SAEP</td><td>14/12</td><td>20</td></tr>
+          <tr><td>Avaliação prática (bancada)</td><td>15/12</td><td>20</td></tr>
+          <tr><td><b>Total</b></td><td></td><td><b>100</b></td></tr>
+        </tbody>
+      </table>
+      <div>
+        <div class="card anim" style="margin-bottom:24px"><h3>Resultado</h3>
+          <ul><li><b class="bl">60 pontos ou mais:</b> aprovado</li><li><b class="hl">40 a 59 pontos:</b> recuperação</li><li><b>Menos de 40:</b> reprovado</li></ul></div>
+        <div class="card hot anim"><h3>Frequência mínima: 75 %</h3>
+          <p>A presença é contada <b>por aula</b>, não por dia. Cada dia tem 5 aulas de 45 min. São 35 aulas presenciais: até 8 faltas.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Abertura">
+  <div class="content">
+    <h2 class="title anim">Como as aulas estão organizadas</h2>
+    <div class="cards" style="--c:3;margin-bottom:30px">
+      <div class="card anim"><h3>1 · Teoria</h3><p>O conceito do dia, com exemplos de código curtos e perguntas rápidas.</p></div>
+      <div class="card anim"><h3>2 · Simulação</h3><p>O circuito é montado e programado no <b>Tinkercad</b>, com diagrama de montagem e fluxograma.</p></div>
+      <div class="card hot anim"><h3>3 · Bancada</h3><p>Nos dois últimos dias, o mesmo método vai para o <b>Arduino real</b>: relé, lâmpada, sensores e PWM.</p></div>
+    </div>
+    <div class="scan anim"><div>Dias 2 a 5<br><span style="font-weight:400;font-size:24px">Tinkercad</span></div><i>→</i><div>Dia 6<br><span style="font-weight:400;font-size:24px">Prática 1 · relé e ultrassônico</span></div><i>→</i><div>Dia 7<br><span style="font-weight:400;font-size:24px">Prática 2 · PWM e LDR</span></div></div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Abertura">
+  <div class="content">
+    <h2 class="title anim">Ferramentas que serão usadas</h2>
+    <div class="cards" style="--c:3">
+      <div class="card hot anim"><h3>Tinkercad Circuits (Autodesk)</h3><p>Montar e programar o Arduino no navegador, com monitor serial, multímetro e osciloscópio virtuais.</p></div>
+      <div class="card anim"><h3>Proteus 8 Professional</h3><p>Simulador profissional com bibliotecas de Arduino e sensores; roda o arquivo <code>.hex</code> gerado pela IDE.</p></div>
+      <div class="card anim"><h3>Arduino IDE</h3><p>Escrever, compilar e gravar o firmware na placa real pelo cabo USB.</p></div>
+      <div class="card anim"><h3>Arduino Uno R3</h3><p>Placa com o microcontrolador ATmega328P: 14 pinos digitais (6 com PWM) e 6 entradas analógicas.</p></div>
+      <div class="card anim"><h3>Componentes da bancada</h3><p>Módulo relé, lâmpada 127 V, sensor ultrassônico HC-SR04, potenciômetro, LDR, LEDs e botões.</p></div>
+      <div class="card anim"><h3>Multímetro</h3><p>Conferir alimentação, sinais dos pinos e a tensão média do PWM.</p></div>
+    </div>
+  </div>
+</section>

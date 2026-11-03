@@ -1,0 +1,415 @@
+<!-- ===================== DIA 4 · 17/11 · TINKERCAD ===================== -->
+<section class="slide daycover" data-theme="Dia 4 · Abertura" data-day="4" data-date="ter, 17/11" data-title="Interrupções e sinais analógicos" data-badge="Tinkercad">
+  <div class="content">
+    <div class="dc-head anim"><span class="dc-num">Dia 4</span><span class="dc-date">terça-feira, 17/11</span><span class="dc-tag tk">Tinkercad</span></div>
+    <h1 class="engrave" aria-label="Interrupções e sinais analógicos">
+      <span class="ln t1" style="--l:0"><span class="txt">Interrupções e</span><span class="beam"></span></span>
+      <span class="ln t2" style="--l:.8"><span class="txt">sinais analógicos</span><span class="beam"></span></span>
+    </h1>
+    <p class="lead anim">Responder na hora a um evento e trabalhar com valores intermediários entre 0 e 5 V.</p>
+    <ol class="agenda anim">
+      <li><b>13:30 · Aula 1</b>Polling × interrupção · interrupção externa</li>
+      <li class="pr"><b>14:15 · Aula 2</b>Simulação 5: parada de emergência · timers e millis()</li>
+      <li class="pr"><b>15:00 · Aula 3</b>Simulação 6: dois tempos sem delay</li>
+      <li><b>16:00 · Aula 4</b>Conversor A/D, sensores e PWM</li>
+      <li class="pr"><b>16:45 · Aula 5</b>Simulação 7: termômetro com ventilador PWM</li>
+    </ol>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 4 · Interrupções">
+  <div class="content">
+    <h2 class="title sm anim">Polling × interrupção</h2>
+    <div class="two" style="margin-bottom:26px;gap:40px">
+      <p class="small anim" style="margin:0"><b class="bl">Polling (consulta):</b> o programa pergunta ao pino, de tempos em tempos, “mudou?”. Se estiver ocupado num <code>delay</code>, <b>perde</b> o evento.</p>
+      <p class="small anim" style="margin:0"><b class="hl">Interrupção:</b> o <b>hardware</b> percebe a mudança, pausa o programa e executa uma função curta, a <b>ISR</b>. É a <b>campainha</b>: ninguém fica olhando a porta.</p>
+    </div>
+    <div class="w anim" data-w="isr"></div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 4 · Interrupção externa">
+  <div class="content">
+    <h2 class="title sm anim">Interrupção externa: attachInterrupt</h2>
+    <div class="two">
+      <div>
+        <div class="codeline anim" style="margin:0 0 22px;font-size:23px">attachInterrupt(digitalPinToInterrupt(2), minhaISR, FALLING);</div>
+        <table class="tbl sm anim" style="margin-bottom:18px">
+          <thead><tr><th>Modo</th><th>Dispara quando o pino…</th></tr></thead>
+          <tbody>
+            <tr><td><code>FALLING</code></td><td>vai de HIGH para LOW (botão com pull-up apertado)</td></tr>
+            <tr><td><code>RISING</code></td><td>vai de LOW para HIGH</td></tr>
+            <tr><td><code>CHANGE</code></td><td>muda em qualquer sentido</td></tr>
+            <tr><td><code>LOW</code></td><td>está em LOW (repete enquanto estiver)</td></tr>
+          </tbody>
+        </table>
+        <p class="small anim">No Uno, só os pinos <b>D2 (INT0)</b> e <b>D3 (INT1)</b> têm interrupção externa com <code>attachInterrupt</code>.</p>
+      </div>
+      <div class="warn anim"><h3>Regras da ISR</h3>
+        <p>1. Seja <b>curta</b>: mude uma variável e saia.</p>
+        <p>2. Variáveis usadas na ISR e no loop são <code>volatile</code>.</p>
+        <p>3. Dentro da ISR, <code>delay()</code> não funciona e <code>millis()</code> não avança.</p>
+        <p>4. Evite <code>Serial.print</code> na ISR.</p>
+        <p style="margin:0">5. Não recebe nem devolve valores: <code>void minhaISR()</code>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 4 · Simulação 5">
+  <div class="content">
+    <h2 class="title sm anim">Simulação 5: parada de emergência · montagem</h2>
+    <div class="two wl" style="grid-template-columns:1.1fr .9fr">
+      <div class="fig anim"><div class="w" data-w="wiring" data-d="d4emerg"></div></div>
+      <div>
+        <ul class="list sm anim">
+          <li>O LED verde (<b>D8</b>) simula uma máquina em ciclo lento: 2 s ligado, 2 s desligado, com <code>delay</code>.</li>
+          <li>O botão de emergência (<b>D2</b>) gera uma <b>interrupção</b>: a ISR desliga a máquina e acende o LED vermelho (<b>D9</b>) na hora, mesmo no meio do <code>delay</code>.</li>
+          <li>Para religar: botão <b>Reiniciar</b> do Arduino.</li>
+        </ul>
+        <div class="mission anim"><b>Teste comparativo:</b> troque a interrupção por um <code>if (digitalRead(2) == LOW)</code> no início do loop. Dê um toque rápido: a parada ainda acontece na hora?</div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+WR.d4emerg={w:1000,h:740,label:'Botão de emergência no pino 2 e dois LEDs',
+  p:[['uno','U',40,300],['led','LE',520,80,{l:'emergência',c:'#D62828'}],['led','LP',660,80,{l:'máquina',c:'#2F9E44'}],
+     ['res','R1',510,160,{v:1,l:'220 Ω'}],['res','R2',650,160,{v:1,l:'220 Ω'}],['btn','B',840,200,{l:'EMERGÊNCIA',c:'#D62828'}]],
+  f:[['o','U.9','v:282','h:510','R1.b'],['o','U.8','v:296','h:650','R2.b'],['o','LE.a','R1.a'],['o','LP.a','R2.a'],
+     ['b','U.2','v:310','h:822','B.a'],
+     ['k','LE.k','h:570','v:20','h:217','U.GND'],['k','LP.k','h:710','v:20'],['k','B.b','v:280','h:930','v:20','h:700']]};
+</script>
+
+<section class="slide" data-theme="Dia 4 · Simulação 5">
+  <div class="content">
+    <h2 class="title sm anim">Simulação 5: fluxograma e código</h2>
+    <div class="two" style="grid-template-columns:.85fr 1.15fr;gap:36px">
+      <div class="fig anim"><div class="w" data-w="flow" data-f="d4emerg"></div></div>
+      <script type="text/x-arduino" class="sm anim" data-t="Simulação 5 · emergência por interrupção">
+        const byte MAQUINA = 8, ALARME = 9, EMERG = 2;
+        volatile bool emergencia = false;
+
+        void pararTudo() {                 // ISR
+          emergencia = true;
+          digitalWrite(MAQUINA, LOW);
+          digitalWrite(ALARME, HIGH);
+        }
+
+        void setup() {
+          pinMode(MAQUINA, OUTPUT);
+          pinMode(ALARME, OUTPUT);
+          pinMode(EMERG, INPUT_PULLUP);
+          attachInterrupt(digitalPinToInterrupt(EMERG),
+                          pararTudo, FALLING);
+          Serial.begin(9600);
+        }
+
+        void loop() {
+          if (emergencia) {
+            Serial.println("EMERGENCIA: reinicie a placa");
+            while (true) { }               // trava aqui
+          }
+          digitalWrite(MAQUINA, HIGH);  delay(2000);
+          digitalWrite(MAQUINA, LOW);   delay(2000);
+        }
+      </script>
+    </div>
+  </div>
+</section>
+<script>
+FC.d4emerg={w:840,h:760,label:'Fluxograma do loop e da ISR',
+  n:[['i','term',250,40,'Início'],['p1','proc',250,130,'Configurar pinos|e interrupção em D2',300],
+     ['d1','dec',250,270,'Emergência?',280],['p2','proc',250,410,'Máquina liga 2 s',300],['p3','proc',250,520,'Máquina desliga 2 s',300],
+     ['o1','io',250,650,'Avisar no serial|e travar',290],
+     ['j','term',660,180,'ISR (D2 caiu)',260],['q1','proc',660,300,'emergencia = true',260],['q2','proc',660,410,'Desliga máquina|liga alarme',260],['q3','term',660,520,'Volta ao loop',260]],
+  e:[['i','p1'],['p1','d1'],['d1','p2',[],'Não'],['p2','p3'],['p3','d1.l',['v:590','h:60','v:270']],['d1.r','o1.r',['h:460','v:650'],'Sim'],
+     ['j','q1'],['q1','q2'],['q2','q3']]};
+</script>
+
+<section class="slide" data-theme="Dia 4 · Interrupções internas">
+  <div class="content">
+    <h2 class="title sm anim">Interrupções internas: os timers do ATmega328P</h2>
+    <div class="two wl">
+      <div>
+        <table class="tbl sm anim" style="margin-bottom:20px">
+          <thead><tr><th>Timer</th><th>Bits</th><th>Usado por</th></tr></thead>
+          <tbody>
+            <tr><td>Timer0</td><td>8</td><td><code>millis()</code>, <code>delay()</code>, PWM dos pinos 5 e 6</td></tr>
+            <tr><td>Timer1</td><td>16</td><td>Biblioteca Servo, PWM dos pinos 9 e 10</td></tr>
+            <tr><td>Timer2</td><td>8</td><td><code>tone()</code>, PWM dos pinos 3 e 11</td></tr>
+          </tbody>
+        </table>
+        <ul class="list sm anim">
+          <li>Um timer é um <b>contador</b> que soma 1 a cada pulso do clock (16 MHz), dividido pelo <b>prescaler</b>.</li>
+          <li>Ao chegar ao valor de comparação ou ao estourar, gera uma interrupção <b>interna</b>: nenhum pino precisa mudar.</li>
+          <li>Outras fontes internas: fim da conversão A/D, byte recebido pela serial, watchdog.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="formula anim">f = 16 MHz ÷ (prescaler × (OCR1A + 1))<small>1 Hz → 16 000 000 ÷ (1024 × 15 625)</small></div>
+        <div class="card anim" style="margin-bottom:18px"><h3>millis() é uma interrupção</h3><p>A cada estouro do Timer0, uma ISR interna soma o tempo. Por isso <code>millis()</code> conta mesmo durante o loop.</p></div>
+        <div class="callout anim" style="margin-top:0;font-size:26px">Configurar o Timer1 usa as <b>expressões binárias</b> do dia 2: <code>TCCR1B |= (1 &lt;&lt; CS12);</code></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 4 · Tempo sem bloqueio">
+  <div class="content">
+    <h2 class="title sm anim">millis(): tempo sem travar o programa</h2>
+    <div class="two">
+      <div>
+        <ul class="list sm anim">
+          <li><code>delay(1000)</code> para <b>tudo</b> por 1 s: botões e sensores ficam sem leitura.</li>
+          <li><code>millis()</code> devolve os milissegundos desde que a placa ligou (<code>unsigned long</code>).</li>
+          <li>Guarde o instante da última ação e pergunte: <b>já passou o intervalo?</b></li>
+          <li>Com isso, várias tarefas rodam “ao mesmo tempo”, cada uma com seu tempo.</li>
+        </ul>
+        <p class="callout blue anim" style="font-size:26px">A subtração <code>millis() - anterior</code> continua certa mesmo quando o contador estoura, após 49,7 dias.</p>
+      </div>
+      <script type="text/x-arduino" class="anim" data-t="Padrão de temporização sem delay">
+        unsigned long anterior = 0;
+        const unsigned long INTERVALO = 300;
+
+        void loop() {
+          if (millis() - anterior >= INTERVALO) {
+            anterior = millis();
+            // tarefa periódica aqui
+          }
+          // o resto do loop continua livre
+        }
+      </script>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 4 · Simulação 6">
+  <div class="content">
+    <h2 class="title sm anim">Simulação 6: dois tempos, nenhum delay</h2>
+    <div class="two" style="grid-template-columns:.8fr 1.2fr;gap:36px">
+      <div>
+        <table class="tbl sm anim" style="margin-bottom:18px">
+          <thead><tr><th>LED (com 220 Ω)</th><th>Pino</th><th>Quem pisca</th></tr></thead>
+          <tbody>
+            <tr><td>LED A</td><td>D12</td><td><code>millis()</code>, 300 ms</td></tr>
+            <tr><td>LED B</td><td>D13</td><td>ISR do Timer1, 1 s</td></tr>
+          </tbody>
+        </table>
+        <div class="fig anim"><div class="w" data-w="flow" data-f="d4timer"></div></div>
+      </div>
+      <script type="text/x-arduino" class="xs anim" data-t="Simulação 6 · millis() + interrupção do Timer1">
+        const byte LED_A = 12, LED_B = 13;
+        unsigned long anterior = 0;
+        bool estadoA = false;
+
+        void setup() {
+          pinMode(LED_A, OUTPUT);
+          pinMode(LED_B, OUTPUT);
+          noInterrupts();                    // pausa durante a config.
+          TCCR1A = 0;  TCCR1B = 0;  TCNT1 = 0;
+          OCR1A  = 15624;                    // 1 Hz
+          TCCR1B |= (1 << WGM12);            // modo CTC
+          TCCR1B |= (1 << CS12) | (1 << CS10); // prescaler 1024
+          TIMSK1 |= (1 << OCIE1A);           // habilita a ISR
+          interrupts();
+        }
+
+        ISR(TIMER1_COMPA_vect) {             // interrupção interna
+          digitalWrite(LED_B, !digitalRead(LED_B));
+        }
+
+        void loop() {
+          if (millis() - anterior >= 300) {
+            anterior = millis();
+            estadoA = !estadoA;
+            digitalWrite(LED_A, estadoA);
+          }
+        }
+      </script>
+    </div>
+  </div>
+</section>
+<script>
+FC.d4timer={w:720,h:500,label:'Fluxograma da tarefa com millis',
+  n:[['d1','dec',250,90,'Passaram|300 ms?',300],['p1','proc',250,250,'anterior = millis()|inverter LED A',300],
+     ['t','term',590,90,'ISR Timer1|a cada 1 s',220],['q','proc',590,250,'inverter LED B',220]],
+  e:[['d1','p1',[],'Sim'],['d1.l','d1.t',['h:50','v:14','h:250'],'Não'],['p1','d1.t',['v:340','h:50','v:14','h:250']],['t','q']],
+  t:[[250,420,'loop()'],[590,420,'interrupção']]};
+</script>
+
+<section class="slide" data-theme="Dia 4 · Entrada analógica">
+  <div class="content">
+    <h2 class="title sm anim">Entrada analógica: o conversor A/D</h2>
+    <div class="two wr">
+      <div class="fig anim">
+        <svg viewBox="0 0 700 470" role="img" aria-label="Sinal analógico e sua conversão em degraus">
+          <line x1="70" y1="400" x2="680" y2="400" stroke="#1A2366" stroke-width="4"/><line x1="70" y1="400" x2="70" y2="30" stroke="#1A2366" stroke-width="4"/>
+          <path d="M70 330 C 180 120, 300 60, 400 160 S 600 360, 680 120" fill="none" stroke="#8A92A6" stroke-width="5"/>
+          <path d="M70 330 h40 v-60 h40 v-60 h40 v-40 h40 v-30 h40 v20 h40 v40 h40 v60 h40 v60 h40 v20 h40 v-20 h40 v-80 h40 v-80 h30" fill="none" stroke="#E8490F" stroke-width="5"/>
+          <g font-size="20" fill="#525B70"><text x="60" y="404" text-anchor="end">0</text><text x="60" y="44" text-anchor="end">1023</text><text x="680" y="440" text-anchor="end">tempo</text></g>
+          <g font-size="21" font-weight="700"><text x="440" y="60" fill="#8A92A6">sinal analógico (contínuo)</text><text x="440" y="90" fill="#B8380A">valor lido (degraus)</text></g>
+        </svg>
+      </div>
+      <div>
+        <ul class="list sm anim">
+          <li>O ATmega328P tem um ADC de <b>10 bits</b>: 2<sup>10</sup> = 1024 valores, de 0 a 1023.</li>
+          <li>Seis entradas: <b>A0 a A5</b>. <code>analogRead(A0)</code> leva cerca de 0,1 ms.</li>
+          <li>Referência padrão: 5 V. Cada degrau vale 5 ÷ 1024 ≈ <b>4,9 mV</b> (resolução).</li>
+        </ul>
+        <div class="formula anim">V = leitura × 5,0 ÷ 1023<small>leitura 512 → ≈ 2,50 V</small></div>
+        <p class="note anim">É o conversor A/D estudado em eletrônica digital, agora dentro do microcontrolador.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 4 · Sensores analógicos">
+  <div class="content">
+    <h2 class="title sm anim">Sensores analógicos mais comuns no Tinkercad</h2>
+    <div class="cards" style="--c:3;margin-bottom:22px">
+      <div class="card anim"><h3>Potenciômetro</h3><p>Divisor de tensão ajustável: pontas no 5 V e no GND, cursor no pino analógico. Gira e a tensão vai de 0 a 5 V.</p></div>
+      <div class="card anim"><h3>LDR (fotorresistor)</h3><p>A resistência <b>cai</b> com a luz. Em série com um resistor fixo (10 kΩ), forma um divisor que o Arduino lê.</p></div>
+      <div class="card hot anim"><h3>TMP36</h3><p>Sensor de temperatura: <b>10 mV por °C</b>, com 500 mV em 0 °C.</p><p style="margin-top:6px"><code>T = (V − 0,5) × 100</code></p></div>
+    </div>
+    <div class="two">
+      <div class="box anim"><h3>map(): mudar de escala</h3><p><code>map(valor, 0, 1023, 0, 255)</code> converte a leitura de 0–1023 para 0–255. Trabalha com inteiros.</p></div>
+      <div class="box anim"><h3>Divisor de tensão</h3><p><code>Vsaída = 5 × R2 ÷ (R1 + R2)</code>. É assim que um sensor resistivo vira uma tensão.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 4 · Saída analógica">
+  <div class="content">
+    <h2 class="title sm anim">Saída “analógica”: PWM</h2>
+    <div class="two wl">
+      <div>
+        <ul class="list sm anim">
+          <li>O Uno não tem saída de tensão variável. Ele <b>liga e desliga</b> o pino muito rápido: é a <b>modulação por largura de pulso</b>.</li>
+          <li><b>Ciclo de trabalho</b> (duty cycle): porcentagem do tempo em HIGH. A <b>média</b> controla brilho de LED e velocidade de motor.</li>
+          <li><code>analogWrite(pino, valor)</code>, com valor de <b>0 a 255</b> (8 bits).</li>
+          <li>Só nos pinos com <b>~</b>: 3, 5, 6, 9, 10 e 11. Frequência ≈ 490 Hz (980 Hz nos pinos 5 e 6).</li>
+        </ul>
+      </div>
+      <div>
+        <table class="tbl sm anim">
+          <thead><tr><th><code style="background:#fff">analogWrite</code></th><th>Ciclo</th><th>Média</th></tr></thead>
+          <tbody><tr><td>0</td><td>0 %</td><td>0 V</td></tr><tr><td>64</td><td>25 %</td><td>1,25 V</td></tr><tr><td>128</td><td>50 %</td><td>2,5 V</td></tr><tr><td>191</td><td>75 %</td><td>3,75 V</td></tr><tr><td>255</td><td>100 %</td><td>5 V</td></tr></tbody>
+        </table>
+        <p class="note anim">Motor ou carga maior que 20 mA: o pino comanda um <b>transistor</b>, nunca a carga direto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 4 · Saída analógica">
+  <div class="content">
+    {{CHIP}}
+    <h2 class="title sm anim">Do potenciômetro ao PWM</h2>
+    <div class="w anim" data-w="adc"></div>
+    <p class="note anim">No Tinkercad, o <b>osciloscópio</b> mostra esta forma de onda: ligue a ponta + no pino 9 e a − no GND e ajuste a escala para 2 ms por divisão.</p>
+  </div>
+</section>
+
+<section class="slide" data-theme="Dia 4 · Simulação 7">
+  <div class="content">
+    <h2 class="title sm anim">Simulação 7: ventilador por temperatura</h2>
+    <div class="two wl" style="grid-template-columns:1.15fr .85fr">
+      <div class="fig anim"><div class="w" data-w="wiring" data-d="d4fan"></div></div>
+      <div>
+        <table class="tbl sm anim" style="margin-bottom:16px">
+          <thead><tr><th>Componente</th><th>Ligação</th></tr></thead>
+          <tbody>
+            <tr><td>TMP36</td><td>+Vs: 5 V · Vout: A0 · GND</td></tr>
+            <tr><td>Resistor 1 kΩ</td><td>D9 → base do transistor</td></tr>
+            <tr><td>Transistor NPN</td><td>emissor no GND, coletor no motor</td></tr>
+            <tr><td>Motor CC</td><td>entre 5 V e coletor</td></tr>
+            <tr><td>Diodo 1N4007</td><td>em paralelo com o motor, faixa no 5 V</td></tr>
+          </tbody>
+        </table>
+        <p class="small anim">O <b>diodo de roda livre</b> protege o transistor do pico de tensão gerado pela bobina do motor ao desligar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+WR.d4fan={w:1280,h:800,label:'TMP36 em A0 e motor no pino 9 por transistor',
+  p:[['uno','U',40,200],['tmp36','T',880,500,{l:'TMP36'}],['res','RB',600,110,{l:'1 kΩ'}],['npn','Q',900,200,{l:'NPN'}],
+     ['motor','M',1060,70,{l:'ventilador'}],['diodo','D',990,40,{l:'1N4007'}]],
+  f:[['r','U.5V','v:700','h:860','T.vs'],['c','U.A0','v:670','h:880','T.out'],['k','U.GNDb','v:730','h:900','T.gnd'],
+     ['o','U.9','v:110','RB.a'],['o','RB.b','h:840','Q.B'],
+     ['w','M.a','v:160','h:916','Q.C'],['w','D.a',[990,160]],
+     ['r','U.5V','v:780','h:1240','v:14','h:990','D.k'],['r','M.b','v:190',[1240,190]],
+     ['k','Q.E','v:330','h:760','v:60','h:217','U.GND']]};
+</script>
+
+<section class="slide" data-theme="Dia 4 · Simulação 7">
+  <div class="content">
+    <h2 class="title sm anim">Simulação 7: fluxograma e código</h2>
+    <div class="two" style="grid-template-columns:.8fr 1.2fr;gap:36px">
+      <div class="fig anim"><div class="w" data-w="flow" data-f="d4fan"></div></div>
+      <script type="text/x-arduino" class="sm anim" data-t="Simulação 7 · TMP36 + ventilador PWM">
+        const byte SENSOR = A0, MOTOR = 9;
+
+        void setup() {
+          pinMode(MOTOR, OUTPUT);
+          Serial.begin(9600);
+        }
+
+        void loop() {
+          int leitura = analogRead(SENSOR);           // 0 a 1023
+          float tensao = leitura * 5.0 / 1023.0;      // volts
+          float temp = (tensao - 0.5) * 100.0;        // °C
+
+          int pwm;
+          if (temp < 25) {
+            pwm = 0;                                  // desligado
+          } else if (temp > 40) {
+            pwm = 255;                                // máximo
+          } else {
+            pwm = map(temp, 25, 40, 80, 255);         // proporcional
+          }
+          analogWrite(MOTOR, pwm);
+
+          Serial.print("Temp: ");  Serial.print(temp, 1);
+          Serial.print(" C | PWM: "); Serial.println(pwm);
+          delay(500);
+        }
+      </script>
+    </div>
+  </div>
+</section>
+<script>
+FC.d4fan={w:760,h:820,label:'Fluxograma do controle de temperatura',
+  n:[['i','term',300,40,'Início'],['o1','io',300,130,'Ler A0'],['p1','proc',300,235,'Converter para|tensão e °C'],
+     ['d1','dec',300,370,'T < 25 °C?',280],['p2','proc',620,370,'PWM = 0',200],
+     ['d2','dec',300,520,'T > 40 °C?',280],['p3','proc',620,520,'PWM = 255',200],
+     ['p4','proc',300,650,'PWM proporcional|(map 80 a 255)',300],['o2','io',300,760,'analogWrite e serial',320]],
+  e:[['i','o1'],['o1','p1'],['p1','d1'],['d1.r','p2.l',[],'Sim'],['d1','d2',[],'Não'],['d2.r','p3.l',[],'Sim'],['d2','p4',[],'Não'],['p4','o2'],
+     ['p2','o2.r',['v:420','h:730','v:760']],['p3','o2.r',['v:580','h:730']],['o2.l','o1.l',['h:60','v:130']]]};
+</script>
+
+<section class="slide" data-theme="Dia 4 · Revisão">
+  <div class="content">
+    {{CHIP}}
+    <h2 class="title sm anim">Revisão do dia</h2>
+    <div class="quiz anim" data-q="d4"></div>
+  </div>
+</section>
+<script>QZ.d4={qs:[
+  {q:'No Arduino Uno, quais pinos aceitam attachInterrupt?',o:['Todos os digitais','D2 e D3','A0 a A5','Só os pinos com ~'],a:1,e:' D2 é a INT0 e D3 é a INT1.'},
+  {q:'Por que a variável alterada dentro da ISR deve ser volatile?',o:['Para ocupar menos memória','Para o compilador sempre reler o valor da memória','Para ficar mais rápida','Para poder usar delay'],a:1,e:' Sem volatile, o compilador pode guardar uma cópia e o loop não “vê” a mudança feita pela ISR.'},
+  {q:'Um potenciômetro está no meio do curso. analogRead devolve aproximadamente:',o:['128','255','512','1023'],a:2,e:' 2,5 V em 10 bits é cerca de 512.'},
+  {q:'analogWrite(9, 64) gera uma tensão média de cerca de:',o:['0,64 V','1,25 V','2,5 V','6,4 V'],a:1,e:' 64 ÷ 255 ≈ 25 % de 5 V.'}
+],opts:{end:'Próximo encontro: avaliação teórica (dias 1 a 4) e protocolos de comunicação.'}};</script>
+
+<section class="slide closing" data-theme="Dia 4 · Encerramento">
+  <div class="content">
+    <ul class="sum">
+      <li class="anim"><b>Interrupção externa</b> (D2, D3) responde na hora; a <b>interna</b> vem dos timers.</li>
+      <li class="anim"><b>millis()</b> substitui o delay quando o programa precisa continuar atento.</li>
+      <li class="anim"><b>analogRead</b> lê 0–1023; <b>analogWrite</b> gera PWM de 0–255.</li>
+    </ul>
+    <h1 class="engrave" aria-label="Próximo: avaliação"><span class="ln t1" style="--l:.6"><span class="txt">Próximo: avaliação</span><span class="beam"></span></span></h1>
+    <p class="after anim">24/11 · Avaliação teórica (20 pontos) sobre os dias 1 a 4 e, depois, protocolos de comunicação.</p>
+  </div>
+</section>

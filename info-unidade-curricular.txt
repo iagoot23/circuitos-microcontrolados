@@ -1,0 +1,51 @@
+CIRCUITOS MICROCONTROLADOS
+
+
+-> Formato da Unidade Curricular
+- 5x aulas de 45min
+- Intervalo de 15min
+- 13:30 às 17:30
+- Frequência mínima de 75% (contabilizada por aula e não dia)
+- Total de 100 pontos
+- Menor que 40 pontos: reprovado
+- Igual ou maior a 40 pontos e menor que 60 pontos: recuperação
+- Igual ou maior a 60 pontos: aprovado
+
+
+-> Distribuição de notas/pontuação
+- Formulário Aula Assíncrona I: 10 pontos | 06/11
+- Atividade em Sala: 20 pontos | 10/11
+- Formulário Aula Assíncrona II: 10 pontos | 04/12
+- Avaliação Teórica: 20 pontos |24/11
+- Simulado SAEP: 20 pontos | 14/12
+- Avaliação Prática: 20 pontos | 15/12
+
+
+-> Calendário de aulas presenciais (7 aulas):
+- 27/10
+- 03/11
+- 10/11
+- 17/11
+- 24/11
+- 01/12
+- 15/12
+
+-> Calendário de Aula Assíncrona (2 aulas):
+- 06/11
+- 04/12
+
+
+-> Conhecimentos
+- Eletrônica Digital: Códigos numéricos e alfanuméricos; Código BCD (Binary Coded Decimal); Portas Lógicas e Tabela Verdade; Multiplexadores; Conversores D/A e A/D; Codificadores e Decodificadores; Circuitos Integrados
+- Microcontroladores: Arquitetura de microcontroladores; Algoritmos; Programação de microcontroladores; Tipos de dados; Expressões aritméticas, relacionais e binárias; Estruturas de decisão e repetição; Interrupções internas e externas; Entradas e saídas analógicas; Entrada e saída de dados; Protocolos de Comunicação; Simulação do funcionamento através de software
+- Documentação: Fluxograma
+
+-> Capacidades técnicas
+- Definir a estratégia de funcionamento do circuito com base nos requisitos do escopo.
+- Selecionar os componentes e dispositivos requeridos pela natureza e funções do sistema automatizado em questão.
+- Avaliar, por simulação, e com referência nos requisitos do escopo, o funcionamento dos circuitos eletrônicos.
+- Dimensionar os componentes eletrônicos do sistema automatizado com referência nas especificações contidas em catálogos, manuais, escopo do projeto e circuitos. 
+
+-> Simuladores
+- Proteus 8 Professional com Bibliotecas de Arduino e sensores disponibilizados na internet.
+- Tinkercad
